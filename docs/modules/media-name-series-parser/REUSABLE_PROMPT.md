@@ -105,4 +105,3 @@ Used by scan and match. Original filenames and original catalog titles remain av
 ## Example Input / Output
 
 A.Separation.2011.1080p.BluRay.x265.AAC-PSA.mkv -> title=a separation, year=2011; Show/Season 02/E03.mkv -> season=2, episode=3.
-

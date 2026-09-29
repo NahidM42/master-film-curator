@@ -105,4 +105,3 @@ report prints the generated folder. Reports never authorize or execute operation
 ## Example Input / Output
 
 One confirmed Persona plus three unconfirmed fixture records -> missing CSV contains IDs 2, 3 and 4. A filename beginning = is prefixed with an apostrophe for Excel safety.
-

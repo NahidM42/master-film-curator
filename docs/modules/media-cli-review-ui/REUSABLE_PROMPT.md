@@ -105,4 +105,3 @@ doctor, import-catalog, scan, match, quality, review, plan, report, apply, rollb
 ## Example Input / Output
 
 media-curator review --file-id 12 --action accept --master-id 545 stores an explicit match; no media is moved until a later approved Plan.
-

@@ -105,4 +105,3 @@ match never mutates media. review supports accept, reject, choosing any existing
 ## Example Input / Output
 
 Shame without year -> manual_review with 1968 and 2011 candidates. Shame.2011 -> exact match to 2011.
-

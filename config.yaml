@@ -23,4 +23,3 @@ quality:
 ffprobe: ffprobe
 max_path_length: 240
 max_component_length: 110
-

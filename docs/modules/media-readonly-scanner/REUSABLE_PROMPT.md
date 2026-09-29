@@ -105,4 +105,3 @@ scan prints inventory counts and unavailable-path warnings. Filesystem state cha
 ## Example Input / Output
 
 Two roots with one Persona video and one unknown video produce indexed=2, with both original byte strings and mtimes unchanged.
-

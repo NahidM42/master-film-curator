@@ -105,4 +105,3 @@ All commands accept --config before the subcommand. doctor validates paths witho
 ## Example Input / Output
 
 A YAML at /workspace/settings/config.yaml with sources: [input] resolves to /workspace/settings/input.
-

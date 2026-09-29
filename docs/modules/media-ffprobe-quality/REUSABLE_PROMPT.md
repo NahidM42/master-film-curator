@@ -105,4 +105,3 @@ doctor checks availability; quality measures indexed files; apply also requires 
 ## Example Input / Output
 
 1920x800 -> 1080-class -> normal hierarchy; 3840x2160 -> 2160 / 4K -> 90_Quality_Review/Above_1080_4K.
-

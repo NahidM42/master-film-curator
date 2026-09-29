@@ -105,4 +105,3 @@ apply shows summary then confirms, or explicit --yes. rollback defaults to previ
 ## Example Input / Output
 
 Cross-device apply without deletion flag keeps source and verifies copy. Rollback later removes that copy only if both source and destination still match recorded content.
-

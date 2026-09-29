@@ -11,7 +11,7 @@ Verified 2026-09-30 (Asia/Tehran), Python 3.12.13 in WSL/Linux. All tests use te
 - Installed `media-curator --help`: all eleven requested commands present.
 - Installed `media-curator import-catalog`: **570** imported to the local application state.
 - `media-curator --config demo-output/config.yaml doctor`: all checks passed using explicitly configured local ffprobe.
-- `uv build`: source distribution and wheel built successfully.
+- `uv build`: source distribution and wheel built successfully. CLI and report modules imported successfully directly from the built wheel.
 
 The standalone synthetic demo imported 570 records, indexed 11 videos, confirmed 6 video matches, held 2 duplicate encodes and 1 ambiguous title, identified 1 unknown title and 1 extra. Real ffprobe read 10 valid clips; the deliberately invalid clip produced a recorded Unknown error. The Plan contained 9 files (including subtitle, poster and extra), with one below-1080 movie, one above-1080 movie, one Unknown movie and one series folder. Three uncertain files were excluded.
 
