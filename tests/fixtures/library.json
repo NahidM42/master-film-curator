@@ -1,0 +1,19 @@
+{
+  "videos": [
+    {"path": "drive-a/Persona/Persona.1966.1080p.BluRay.mkv", "size": "1920x800"},
+    {"path": "drive-a/Persona/Extras/sample.mkv", "size": "1280x720"},
+    {"path": "drive-a/A.Separation.2011.mkv", "size": "1280x720"},
+    {"path": "drive-b/Dogville.2003.mkv", "size": "3840x2160"},
+    {"path": "drive-b/Amour.2012.mkv", "invalid": true},
+    {"path": "drive-b/Shame.mkv", "size": "1920x1080"},
+    {"path": "drive-b/Unknown.Zyxw.2020.mkv", "size": "1920x1080"},
+    {"path": "drive-b/Papillon.1973.1080p.mkv", "size": "1920x1080"},
+    {"path": "drive-b/Papillon.1973.720p.mkv", "size": "1280x720"},
+    {"path": "drive-a/Scenes from a Marriage (1973)/Season 01/S01E01.mkv", "size": "1920x1080"},
+    {"path": "drive-a/Scenes from a Marriage (1973)/Season 01/S01E02.mkv", "size": "1920x1080"}
+  ],
+  "sidecars": {
+    "drive-a/Persona/Persona.1966.en.srt": "1\n00:00:00,000 --> 00:00:00,200\nSynthetic subtitle\n",
+    "drive-a/Persona/poster.jpg": "Synthetic poster placeholder; never a real media asset"
+  }
+}

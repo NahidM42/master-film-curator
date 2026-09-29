@@ -1,0 +1,26 @@
+# Paths are relative to this file. Add your mounted Windows roots explicitly.
+sources: []
+destination_root: ./curated-media
+excel_path: ./private-catalog.xlsx
+database_path: ./.state/curator.sqlite3
+reports_root: ./reports
+logs_root: ./logs
+expected_catalog_count: 570
+classification:
+  primary: viewing_priority
+  secondary: channel_tier
+operation_mode:
+  dry_run: true
+verification_mode: sha256
+matching:
+  auto_accept: 95
+  review_threshold: 70
+  ambiguity_margin: 5
+quality:
+  min_1080_width: 1800
+  min_1080_height: 780
+  nominal_1080_width: 1900
+ffprobe: ffprobe
+max_path_length: 240
+max_component_length: 110
+
