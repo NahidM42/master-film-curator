@@ -1,6 +1,6 @@
 # Reusable Media Curator Modules
 
-Version 0.1.0. Verified with synthetic media and the supplied read-only workbook; real-archive acceptance remains pending. Each directory follows the private reusable-module repository format.
+Version 0.1.0. Verified with synthetic media and the public 60-record read-only workbook fixture; private real-archive acceptance remains pending. Each directory follows the private reusable-module repository format.
 
 | Module | Contract |
 | --- | --- |
