@@ -42,11 +42,19 @@ jobs:
             exit 1
           fi
 
-          if git ls-files | grep -E '(^|/)(\.state|reports|logs)/|\.(sqlite3|db)$'; then
-            echo "Tracked runtime state/database artifact detected."
+          tracked_runtime_artifacts=()
+          while IFS= read -r path; do
+            case "$path" in
+              .state/*|reports/*|logs/*|*.sqlite3|*.db)
+                tracked_runtime_artifacts+=("$path")
+                ;;
+            esac
+          done < <(git ls-files)
+
+          if (( ${#tracked_runtime_artifacts[@]} )); then
+            printf 'Tracked runtime state/database artifact(s): %s\n' "${tracked_runtime_artifacts[*]}"
             exit 1
           fi
-
           mapfile -t workbooks < <(git ls-files '*.xlsx')
           if [[ "${#workbooks[@]}" -ne 1 || "${workbooks[0]}" != "sample-data/Rev07_Sample_Catalog_60.xlsx" ]]; then
             printf 'Unexpected tracked workbook(s): %s\n' "${workbooks[*]-<none>}"
