@@ -104,4 +104,4 @@ import-catalog writes only application state; doctor opens the workbook read-onl
 
 ## Example Input / Output
 
-Master ID 545 maps to A Separation (2011), S, Channel 100, Taste 100; top_content_candidate remains true.
+Synthetic Master ID 1001 maps to Lanterns at Noon (1966), S, Channel 100, Taste 95; top_content_candidate remains true.
