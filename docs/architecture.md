@@ -1,6 +1,6 @@
 # Architecture
 
-Python package `master_film_curator` contains ten independently documented functional modules. Typer/Rich and optional Textual call the same synchronous core. SQLite stores catalog rows, inventory, probes, candidates, manual decisions, immutable plan JSON, operation manifests and audit events. The source workbook is read-only.
+Python package `master_film_curator` contains ten independently documented functional modules. Typer/Rich and optional Textual call the same synchronous core. SQLite stores catalog rows, inventory, probes, candidates, manual decisions, immutable plan JSON, operation manifests and audit events. Catalog workbooks are opened read-only; the public configuration targets the synthetic 60-record fixture.
 
 ```mermaid
 flowchart LR
@@ -44,6 +44,6 @@ One physical path per chosen file. Default hierarchy is priority, then tier; alt
 
 ## Validation and portability
 
-Unit tests cover pure parsing/classification and fault-injected filesystem behavior. Integration uses the supplied 570-row workbook and generated video streams; no real media library is referenced. The fake-library script leaves inspectable reports and journals. FFmpeg is an external executable, not a Python runtime dependency. A missing executable is a clear doctor failure and blocks apply.
+Unit tests cover pure parsing/classification and fault-injected filesystem behavior. Public integration uses the generated 60-record synthetic workbook and generated video streams; no private workbook or real media library is referenced. The fake-library script leaves inspectable reports and journals. FFmpeg is an external executable, not a Python runtime dependency. A missing executable is a clear doctor failure and blocks apply.
 
 See `docs/modules/` for API contracts and `docs/safety.md` for crash semantics and assumptions.
