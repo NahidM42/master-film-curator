@@ -1,11 +1,12 @@
-# Paths are relative to this file. Add your mounted Windows roots explicitly.
+# Public-safe sample configuration. Paths are relative to this file.
+# Copy this file to config.local.yaml for private/local archive use.
 sources: []
 destination_root: ./curated-media
-excel_path: ./private-catalog.xlsx
+excel_path: ./sample-data/Rev07_Sample_Catalog_60.xlsx
 database_path: ./.state/curator.sqlite3
 reports_root: ./reports
 logs_root: ./logs
-expected_catalog_count: 570
+expected_catalog_count: 60
 classification:
   primary: viewing_priority
   secondary: channel_tier
