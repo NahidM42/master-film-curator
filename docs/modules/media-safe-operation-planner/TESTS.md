@@ -11,4 +11,4 @@ Coverage: Multi-director titles, 4K, unknown metadata, multiple approved version
 
 Failure contract: Changed/unreadable sources, shared/unowned subtitles, excessively long roots and uncertain series become blocked entries. Plan collisions prevent apply.
 
-Full project verification: 70 passing tests, including actual FFmpeg-generated videos, read-only import of 570 real catalog rows, ambiguity exclusions, 9 planned file operations, repeated empty plan, and byte-preserving rollback. Standalone demo result is retained locally in demo-output/acceptance-result.json. No actual user archive was scanned or mutated. External drive behavior is simulated, not falsely claimed as a real NTFS/exFAT unplug test.
+Full project verification: 70 passing tests, including actual FFmpeg-generated videos, read-only import of 60 synthetic catalog rows, ambiguity exclusions, 9 planned file operations, repeated empty plan, and byte-preserving rollback. Standalone demo result is retained locally in demo-output/acceptance-result.json. No actual user archive was scanned or mutated. External drive behavior is simulated, not falsely claimed as a real NTFS/exFAT unplug test.
