@@ -1,5 +1,211 @@
 # Master Film Curator
 
+Master Film Curator is a safety-first Python application for catalog-driven film and series archive curation. It combines read-only Excel catalog ingestion, confidence-based matching, `ffprobe` media analysis, human review, dry-run operation planning, verified no-overwrite file operations, audit trails, and rollback/recovery.
+
+The public repository is designed to run against a **fully synthetic 60-record catalog**. Private archive paths and the user's real workbook are intentionally kept out of version control.
+
+## Overview
+
+The application turns a trusted catalog into an auditable organization workflow without treating filenames as certain identities. It indexes local media read-only, ranks candidate matches, requires review for ambiguous cases, records quality metadata, builds an immutable plan, and performs media changes only through an explicit `apply` command.
+
+The pre-public-cleanup baseline recorded **70 automated tests passing**. This branch migrates those tests and demonstrations to the synthetic catalog; GitHub Actions re-runs the suite before public release.
+
+## Why This Project Exists
+
+Large media archives combine several failure-prone tasks: identifying files, distinguishing same-title works, handling multiple encodes, preserving series structure and sidecars, inspecting resolution, and moving data across filesystems. A useful curator therefore needs more than renaming rules: it needs uncertainty handling, review gates, collision protection, verifiable writes, and recovery evidence.
+
+## Key Features
+
+- Read-only XLSX catalog ingestion with stable Master IDs and independent cross-sheet flags
+- Confidence-based matching with explicit ambiguity handling and persistent human review
+- Multi-root, read-only media scanning
+- `ffprobe` metadata and resolution classification
+- SQLite application state and audit events
+- Typer/Rich CLI plus optional Textual review UI
+- Dry-run planning before any media mutation
+- SHA-256 verification by default
+- No-overwrite publication and collision protection
+- Journaled file operations and rollback/recovery workflow
+- Conservative handling of sidecars, extras, multiple encodes, and uncertain series episodes
+- Reproducible synthetic demonstration data for public use
+
+## Safety Model
+
+Routine commands—`doctor`, `import-catalog`, `scan`, `match`, `quality`, `review`, `plan`, `report`, and `status`—do not rename or delete media. The explicit `apply` command is the mutation boundary and requires approval. Existing destinations are never silently replaced. Cross-filesystem copies are verified before any optional source deletion, and operations are journaled for conservative rollback.
+
+See [docs/safety.md](docs/safety.md) for invariants, crash semantics, filesystem assumptions, and recovery limits.
+
+## Architecture
+
+The Python package is `master_film_curator`. Core modules cover catalog ingestion, configuration/state, read-only scanning, filename/series parsing, confidence matching, `ffprobe` analysis, operation planning, verified execution/rollback, reporting, and CLI/TUI review.
+
+See [docs/architecture.md](docs/architecture.md) for the component and data-flow overview.
+
+## Workflow
+
+```text
+Synthetic/private catalog
+        ↓
+import-catalog
+        ↓
+      scan
+        ↓
+      match
+        ↓
+     quality
+        ↓
+     review
+        ↓
+      plan
+        ↓
+     report
+        ↓
+explicit apply approval
+        ↓
+journal + verification
+        ↓
+rollback/recovery if needed
+```
+
+## Installation
+
+Requirements:
+
+- Python 3.12+
+- [uv](https://docs.astral.sh/uv/)
+- FFmpeg/`ffprobe` for media-quality analysis and the full integration demo
+
+```bash
+uv sync --extra tui
+sudo apt update
+sudo apt install ffmpeg
+uv run film-curator --help
+```
+
+The base application can be installed without Textual using `uv sync`; CLI review remains available.
+
+## Quick Start
+
+The tracked `config.yaml` is public-safe and targets the generated 60-record sample catalog. Generate the sample once after cloning:
+
+```bash
+uv run python scripts/generate_sample_catalog.py
+uv run film-curator import-catalog
+uv run film-curator status
+```
+
+For a private archive, copy the public config to the ignored local file and edit only the local copy:
+
+```bash
+cp config.yaml config.local.yaml
+uv run film-curator --config config.local.yaml doctor
+```
+
+Keep the real workbook, mounted-drive paths, databases, reports, and logs out of Git.
+
+## CLI
+
+Recommended non-destructive sequence:
+
+```bash
+uv run film-curator doctor
+uv run film-curator import-catalog
+uv run film-curator scan
+uv run film-curator match
+uv run film-curator quality
+uv run film-curator review
+uv run film-curator plan
+uv run film-curator report
+uv run film-curator status
+```
+
+To use another configuration, place `--config` before the command:
+
+```bash
+uv run film-curator --config config.local.yaml scan
+```
+
+Mutation is separate and explicit:
+
+```bash
+uv run film-curator apply --plan PLAN_ID --dry-run
+uv run film-curator apply --plan PLAN_ID
+```
+
+Do not run a real `apply` until the saved Plan has been reviewed.
+
+## Synthetic Demo Dataset
+
+`scripts/generate_sample_catalog.py` creates:
+
+```text
+sample-data/Rev07_Sample_Catalog_60.xlsx
+```
+
+The workbook contains **exactly 60 fictional primary catalog records** and uses the same importer-facing schema as the private Rev07 workflow. It includes films, series hints, multiple years, repeated and near-duplicate titles, all tiers, all viewing-priority levels, independent cross-sheet flags, and matching/reporting edge cases. It was designed from scratch for public demonstration and is not an anonymized copy of the user's archive.
+
+The workbook inspection summary is in [docs/excel-inspection.md](docs/excel-inspection.md).
+
+## Testing
+
+Local verification commands:
+
+```bash
+uv run python scripts/generate_sample_catalog.py
+uv run pytest
+uv run ruff check .
+uv run ruff format --check .
+uv build
+uv run film-curator --help
+```
+
+With FFmpeg installed, the generated-library integration path can also be exercised:
+
+```bash
+uv run python scripts/run_fake_library.py \
+  --output ./demo-output \
+  --ffmpeg ffmpeg \
+  --ffprobe ffprobe
+```
+
+The integration script creates its own media fixtures in a new directory, performs dry-run and synthetic-only Apply/rollback checks, and never accepts a real archive root.
+
+## Project Structure
+
+```text
+.
+├── config.yaml
+├── docs/
+├── sample-data/
+├── scripts/
+├── src/master_film_curator/
+├── tests/
+├── pyproject.toml
+└── uv.lock
+```
+
+Private/local state belongs in ignored files such as `config.local.yaml`, `.state/`, `reports/`, and `logs/`.
+
+## Known Limitations
+
+- Filename matching is deliberately heuristic; it is not a global movie-identification service.
+- Alternate-language titles and unusual release naming can require manual review.
+- Series completeness cannot be inferred from the catalog.
+- Resolution classification is not perceptual-quality scoring or upscaling detection.
+- The safety design is not an atomic distributed transaction across multiple filesystems.
+- NTFS/exFAT mount behavior and physical drive disconnects require a small user-approved pilot before large real-archive operations.
+- No real archive Apply is part of the public demonstration.
+
+## Documentation
+
+- [Architecture](docs/architecture.md)
+- [Safety and recovery](docs/safety.md)
+- [Synthetic Excel inspection](docs/excel-inspection.md)
+- [Validation record](docs/validation.md)
+- [Reusable module contracts](docs/modules/README.md)
+
+## Persian Documentation
+
 برنامهٔ محلی Python برای مدیریت ایمن آرشیو فیلم و سریال، با Excel Rev07 به‌عنوان مرجع قطعی طبقه‌بندی. امتیازها، Tier و اولویت‌ها تغییر نمی‌کنند. برنامه به سرویس آنلاین یا کلید API نیاز ندارد.
 
 **وضعیت:** نسخهٔ اولیهٔ قابل اجرا و آزموده‌شده روی آرشیو ساختگی. هیچ Apply روی فایل‌های واقعی کاربر انجام نشده است. مسیرهای آرشیو عمداً در تنظیمات خالی هستند.
@@ -27,14 +233,14 @@ export PATH="$PWD/.state/linux:$PATH"
 
 ```yaml
 sources:
-  - ./generated-library/movies
-  - ./generated-library/series
-destination_root: ./curated-media
-excel_path: ./private-catalog.xlsx
+  - /path/to/movies
+  - /path/to/series
+destination_root: /path/to/curated-media
+excel_path: ./sample-data/Rev07_Sample_Catalog_60.xlsx
 database_path: ./.state/curator.sqlite3
 reports_root: ./reports
 logs_root: ./logs
-expected_catalog_count: 570
+expected_catalog_count: 60
 classification:
   primary: viewing_priority
   secondary: channel_tier
@@ -135,7 +341,7 @@ logs/operations.jsonl
 ## پوشه‌ها و کیفیت
 
 ```text
-01_Essential/S/Persona (1966) — Ingmar Bergman/
+01_Essential/S/Lanterns at Noon (1966) — Mira Voss/
 90_Quality_Review/Below_1080/01_Essential/S/...
 90_Quality_Review/Above_1080_4K/01_Essential/S/...
 90_Quality_Review/Unknown_Resolution/01_Essential/S/...
