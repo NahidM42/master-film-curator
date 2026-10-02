@@ -10,11 +10,11 @@ from master_film_curator.scanner.filesystem import scan
 @pytest.mark.parametrize(
     "title,year,status,reason",
     [
-        ("persona", 1966, "matched", "exact_title_year"),
-        ("persona", 1967, "matched", "title_year_plus_minus_one"),
-        ("personna", 1966, "manual_review", "fuzzy_title_year"),
-        ("persona", 2000, "manual_review", "title_only"),
-        ("persona", None, "manual_review", "title_only"),
+        ("lanterns at noon", 1966, "matched", "exact_title_year"),
+        ("lanterns at noon", 1967, "matched", "title_year_plus_minus_one"),
+        ("lanterns at non", 1966, "manual_review", "fuzzy_title_year"),
+        ("lanterns at noon", 2000, "manual_review", "title_only"),
+        ("lanterns at noon", None, "manual_review", "title_only"),
         ("totally unrelated", 2020, "unmatched", None),
     ],
 )
@@ -27,17 +27,21 @@ def test_matching(title, year, status, reason):
 
 def test_ambiguous():
     c = candidates_for(
-        {"title": "shame", "year": None}, "", [record(1, "Shame", 1968), record(2, "Shame", 2011)]
+        {"title": "silent harbor", "year": None},
+        "",
+        [record(1, "Silent Harbor", 1968), record(2, "Silent Harbor", 2011)],
     )
     assert decide(c, MatchingConfig()) == "manual_review"
     c = candidates_for(
-        {"title": "shame", "year": 2011}, "", [record(1, "Shame", 1968), record(2, "Shame", 2011)]
+        {"title": "silent harbor", "year": 2011},
+        "",
+        [record(1, "Silent Harbor", 1968), record(2, "Silent Harbor", 2011)],
     )
     assert decide(c, MatchingConfig()) == "matched" and c[0]["master_id"] == 2
 
 
 def test_scan_roots_review_persistence(db, cfg, tmp_path):
-    p = cfg.sources[0] / "Persona.1966.1080p.mkv"
+    p = cfg.sources[0] / "Lanterns.at.Noon.1966.1080p.mkv"
     p.write_bytes(b"fake")
     second = tmp_path / "second"
     second.mkdir()
@@ -58,14 +62,19 @@ def test_scan_roots_review_persistence(db, cfg, tmp_path):
 
 
 def test_multiple_and_episodes(db, cfg):
-    for name in ["Persona.1966.mkv", "Persona.1966.720p.mp4", "Show.2019.S01E01.mkv", "Show.2019.S01E02.mkv"]:
+    for name in [
+        "Lanterns.at.Noon.1966.mkv",
+        "Lanterns.at.Noon.1966.720p.mp4",
+        "Meridian.House.1973.S01E01.mkv",
+        "Meridian.House.1973.S01E02.mkv",
+    ]:
         (cfg.sources[0] / name).write_bytes(b"fake")
     scan(db, cfg)
     assert match_all(db, cfg) == {"matched": 2, "multiple_candidates": 2}
 
 
 def test_missing_root_and_extras(db, cfg):
-    (cfg.sources[0] / "Persona.1966.sample.mkv").write_bytes(b"fake")
+    (cfg.sources[0] / "Lanterns.at.Noon.1966.sample.mkv").write_bytes(b"fake")
     scan(db, cfg)
     assert match_all(db, cfg) == {"extra": 1}
     cfg.sources[0].rename(cfg.sources[0].with_name("offline"))
@@ -76,6 +85,6 @@ def test_missing_root_and_extras(db, cfg):
 def test_symlink_not_followed(db, cfg, tmp_path):
     external = tmp_path / "outside.mkv"
     external.write_bytes(b"fake")
-    (cfg.sources[0] / "Persona.1966.mkv").symlink_to(external)
+    (cfg.sources[0] / "Lanterns.at.Noon.1966.mkv").symlink_to(external)
     assert scan(db, cfg)["skipped_symlinks"] == 1
     assert db.execute("SELECT COUNT(*) FROM media").fetchone()[0] == 0
