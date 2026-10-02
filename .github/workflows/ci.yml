@@ -32,7 +32,7 @@ jobs:
 
           test ! -e private-catalog.xlsx
 
-          if git grep -n -I -E '(/home/[A-Za-z0-9_.-]+|/mnt/[A-Za-z]/|hostname[[:space:]]*[:=]|Rev07_Film_Channel_Rankings_[0-9-]+\.xlsx)' -- .; then
+          if git grep -n -I -E '(/home/[A-Za-z0-9_.-]+|/mnt/[A-Za-z]/|hostname[[:space:]]*[:=]|Rev07_Film_Channel_Rankings_[0-9-]+\.xlsx)' -- . ':(exclude).github/workflows/ci.yml'; then
             echo "Private path, hostname, or real-workbook reference detected."
             exit 1
           fi
