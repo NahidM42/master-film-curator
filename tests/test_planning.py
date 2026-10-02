@@ -10,7 +10,7 @@ from master_film_curator.planning.renamer import destination_for, safe_component
 from master_film_curator.scanner.filesystem import scan
 
 
-def prepare(db, cfg, name="Persona.1966.1080p.mkv"):
+def prepare(db, cfg, name="Lanterns.at.Noon.1966.1080p.mkv"):
     p = cfg.sources[0] / name
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_bytes(b"fake")
@@ -26,10 +26,14 @@ def test_names():
     assert safe_component("x" * 500) == safe_component("x" * 500)
     assert len(safe_component("فیلم" * 100).encode()) <= 240
     assert (
-        sidecar_name(Path("Persona.1966.en.srt"), Path("Persona.1966.1080p.mkv"), "Persona (1966)")
-        == "Persona (1966).en.srt"
+        sidecar_name(
+            Path("Lanterns.at.Noon.1966.en.srt"),
+            Path("Lanterns.at.Noon.1966.1080p.mkv"),
+            "Lanterns at Noon (1966)",
+        )
+        == "Lanterns at Noon (1966).en.srt"
     )
-    assert ".sidecar-" in sidecar_name(Path("odd.srt"), Path("Persona.mkv"), "Persona")
+    assert ".sidecar-" in sidecar_name(Path("odd.srt"), Path("Lanterns.at.Noon.mkv"), "Lanterns at Noon")
 
 
 def test_classification(cfg):
@@ -41,12 +45,12 @@ def test_classification(cfg):
 
 def test_plan_sidecars_and_no_mutation(db, cfg):
     p = prepare(db, cfg)
-    s = p.with_name("Persona.1966.en.srt")
+    s = p.with_name("Lanterns.at.Noon.1966.en.srt")
     s.write_text("subtitle")
     plan = create_plan(db, cfg)
     assert len(plan["entries"]) == 2 and plan["summary"]["files_to_move"] == 2
     assert p.exists() and s.exists() and not cfg.destination_root.exists()
-    assert Path(plan["entries"][0]["destination"]).name == "Persona (1966) — Ingmar Bergman.mkv"
+    assert Path(plan["entries"][0]["destination"]).name == "Lanterns at Noon (1966) — Mira Voss.mkv"
 
 
 def test_plan_collisions_and_manual_only(db, cfg):
@@ -74,7 +78,7 @@ def test_long_path_and_directors(cfg):
 
 
 def test_uncertain_series_stays(db, cfg):
-    prepare(db, cfg, "Show.2019.mkv")
+    prepare(db, cfg, "Meridian.House.1973.mkv")
     row = db.execute("SELECT id FROM media").fetchone()
     save_decision(db, row[0], "accept", 4)
     plan = create_plan(db, cfg)
@@ -82,7 +86,7 @@ def test_uncertain_series_stays(db, cfg):
 
 
 def test_extras_and_shared_sidecar(db, cfg):
-    p = prepare(db, cfg, "Persona/Persona.1966.mkv")
+    p = prepare(db, cfg, "Lanterns at Noon/Lanterns.at.Noon.1966.mkv")
     p.with_name("sample.mkv").write_bytes(b"extra")
     (p.parent / "poster.jpg").write_bytes(b"poster")
     scan(db, cfg)
