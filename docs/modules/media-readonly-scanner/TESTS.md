@@ -11,4 +11,4 @@ Coverage: Overlapping roots, disconnected roots, symlink videos, unusual Unicode
 
 Failure contract: Drive disappearance, permission errors and stat failures become path errors; scanning continues for accessible files. No media moves or deletes.
 
-Full project verification: 70 passing tests, including actual FFmpeg-generated videos, read-only import of 570 real catalog rows, ambiguity exclusions, 9 planned file operations, repeated empty plan, and byte-preserving rollback. Standalone demo result is retained locally in demo-output/acceptance-result.json. No actual user archive was scanned or mutated. External drive behavior is simulated, not falsely claimed as a real NTFS/exFAT unplug test.
+Full project verification: 70 passing tests, including actual FFmpeg-generated videos, read-only import of 60 synthetic catalog rows, ambiguity exclusions, 9 planned file operations, repeated empty plan, and byte-preserving rollback. Standalone demo result is retained locally in demo-output/acceptance-result.json. No actual user archive was scanned or mutated. External drive behavior is simulated, not falsely claimed as a real NTFS/exFAT unplug test.
