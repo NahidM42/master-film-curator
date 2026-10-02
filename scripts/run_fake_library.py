@@ -30,7 +30,7 @@ def main():
     parser.add_argument(
         "--excel",
         type=Path,
-        default=Path(__file__).resolve().parents[1] / "private-catalog.xlsx",
+        default=Path(__file__).resolve().parents[1] / "sample-data" / "Rev07_Sample_Catalog_60.xlsx",
     )
     args = parser.parse_args()
     root = args.output.absolute()
@@ -45,6 +45,7 @@ def main():
         database_path=root / "state.sqlite",
         reports_root=root / "reports",
         logs_root=root / "logs",
+        expected_catalog_count=60,
         ffprobe=probe,
     )
     (root / "config.yaml").write_text(yaml.safe_dump(json.loads(cfg.model_dump_json())), encoding="utf-8")
@@ -56,7 +57,7 @@ def main():
     }
     result = {}
     with connect(cfg.database_path) as db:
-        result["catalog_count"] = import_catalog(db, cfg.excel_path)
+        result["catalog_count"] = import_catalog(db, cfg.excel_path, cfg.expected_catalog_count)
         result["scan"] = scan(db, cfg)
         result["matches"] = match_all(db, cfg)
         result["quality"] = run_quality(db, cfg)
