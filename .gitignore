@@ -10,3 +10,15 @@ demo-output/
 *.egg-info/
 dist/
 build/
+
+# Private/local configuration and archive state
+config.local.yaml
+config.*.local.yaml
+*.sqlite3
+*.db
+
+# Real catalog workbooks must never be tracked
+/Rev07_Film_Channel_Rankings_*.xlsx
+
+# Generated test evidence
+/docs/test-results.xml
