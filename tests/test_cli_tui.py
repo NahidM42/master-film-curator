@@ -18,7 +18,7 @@ def config_file(cfg):
 
 
 def test_cli_status_and_review(db, cfg):
-    (cfg.sources[0] / "Shame.mkv").write_bytes(b"fake")
+    (cfg.sources[0] / "Silent.Harbor.mkv").write_bytes(b"fake")
     scan(db, cfg)
     match_all(db, cfg)
     db.commit()
@@ -44,7 +44,7 @@ def test_tui_accept(db, cfg):
     pytest.importorskip("textual")
     from master_film_curator.tui.review_app import ReviewApp
 
-    (cfg.sources[0] / "Shame.mkv").write_bytes(b"fake")
+    (cfg.sources[0] / "Silent.Harbor.mkv").write_bytes(b"fake")
     scan(db, cfg)
     match_all(db, cfg)
 
