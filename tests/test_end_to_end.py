@@ -38,16 +38,17 @@ def test_real_ffprobe_end_to_end(tmp_path):
     config = Config(
         sources=sources,
         destination_root=tmp_path / "curated",
-        excel_path=ROOT / "private-catalog.xlsx",
+        excel_path=ROOT / "sample-data" / "Rev07_Sample_Catalog_60.xlsx",
         database_path=tmp_path / "db.sqlite",
         reports_root=tmp_path / "reports",
         logs_root=tmp_path / "logs",
         ffprobe=ffprobe,
+        expected_catalog_count=60,
         max_path_length=300,
     )
     originals = {p: p.read_bytes() for source in sources for p in source.rglob("*") if p.is_file()}
     with connect(config.database_path) as db:
-        assert import_catalog(db, config.excel_path) == 570
+        assert import_catalog(db, config.excel_path, config.expected_catalog_count) == 60
         assert scan(db, config)["indexed"] == 11
         counts = match_all(db, config)
         assert counts == {
@@ -68,14 +69,14 @@ def test_real_ffprobe_end_to_end(tmp_path):
         assert all(p.read_bytes() == b for p, b in originals.items())
         report = generate_reports(db, config)
         assert (
-            json.loads((report / "operation_summary.json").read_text())["missing_unconfirmed_titles"] == 565
+            json.loads((report / "operation_summary.json").read_text())["missing_unconfirmed_titles"] == 55
         )
         applied = apply_plan(db, config, plan["id"], dry_run=False, confirmed=True)
         assert applied["status"] == "completed"
         assert any("/Season 01/" in e["destination"] for e in applied["entries"])
         assert all(
             (sources[1] / name).exists()
-            for name in ["Shame.mkv", "Unknown.Zyxw.2020.mkv", "Papillon.1973.720p.mkv"]
+            for name in ["Silent.Harbor.mkv", "Unknown.Zyxw.2020.mkv", "The.Witness.Room.1973.720p.mkv"]
         )
         scan(db, config)
         match_all(db, config)
