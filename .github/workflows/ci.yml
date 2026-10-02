@@ -12,6 +12,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -19,7 +23,94 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Public-release guard
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          test ! -e private-catalog.xlsx
+
+          if git grep -n -I -E '(/home/[A-Za-z0-9_.-]+|/mnt/[A-Za-z]/|hostname[[:space:]]*[:=]|Rev07_Film_Channel_Rankings_[0-9-]+\.xlsx)' -- .; then
+            echo "Private path, hostname, or real-workbook reference detected."
+            exit 1
+          fi
+
+          if git grep -n -I -E '(BEGIN (OPENSSH|RSA|EC) PRIVATE KEY|ghp_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]+|sk-proj-[A-Za-z0-9_-]+|AKIA[0-9A-Z]{16})' -- .; then
+            echo "Credential-like material detected."
+            exit 1
+          fi
+
+          if git ls-files | grep -E '(^|/)(\.state|reports|logs)/|\.(sqlite3|db)        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+        with:
+          version: latest-known
+          python-version: "3.12"
+          enable-cache: true
+
+      - name: Install project
+        run: uv sync --locked --extra tui
+
+      - name: Verify tracked synthetic catalog
+        run: |
+          uv run python - <<'PY'
+          from pathlib import Path
+          from master_film_curator.catalog.excel_reader import read_catalog
+
+          path = Path("sample-data/Rev07_Sample_Catalog_60.xlsx")
+          records = read_catalog(path, expected_count=60)
+          assert len(records) == 60
+          assert len({record.master_id for record in records}) == 60
+          print("synthetic catalog records:", len(records))
+          PY
+
+      - name: Verify sample generator independently
+        run: |
+          uv run python scripts/generate_sample_catalog.py --output /tmp/Rev07_Sample_Catalog_60.xlsx
+          uv run python scripts/inspect_excel.py /tmp/Rev07_Sample_Catalog_60.xlsx > /tmp/sample-inspection.json
+          uv run python - <<'PY'
+          import json
+          from pathlib import Path
+
+          data = json.loads(Path("/tmp/sample-inspection.json").read_text())
+          assert data["sheets"]["Rev07_Channel_Value_Ranking"]["rows"] == 60
+          assert not data["sheets"]["Rev07_Channel_Value_Ranking"]["duplicate_ids"]
+          print("generated sample verified")
+          PY
+
+      - name: Run tests
+        run: uv run pytest
+
+      - name: Ruff lint
+        run: uv run ruff check .
+
+      - name: Ruff format check
+        run: uv run ruff format --check .
+
+      - name: Build package
+        run: uv build
+
+      - name: Verify CLI
+        run: uv run film-curator --help
+
+      - name: Run generated-library integration
+        run: |
+          uv run python scripts/run_fake_library.py             --output ./demo-output-ci             --ffmpeg ffmpeg             --ffprobe ffprobe
+; then
+            echo "Tracked runtime state/database artifact detected."
+            exit 1
+          fi
+
+          mapfile -t workbooks < <(git ls-files '*.xlsx')
+          if [[ "${#workbooks[@]}" -ne 1 || "${workbooks[0]}" != "sample-data/Rev07_Sample_Catalog_60.xlsx" ]]; then
+            printf 'Unexpected tracked workbook(s): %s\n' "${workbooks[*]-<none>}"
+            exit 1
+          fi
 
       - name: Install FFmpeg
         run: |
@@ -27,7 +118,7 @@ jobs:
           sudo apt-get install -y ffmpeg
 
       - name: Install uv
-        uses: astral-sh/setup-uv@v10.2.0
+        uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
         with:
           version: latest-known
           python-version: "3.12"
