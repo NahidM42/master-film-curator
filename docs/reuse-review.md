@@ -18,4 +18,4 @@ The 40 module documents and proposed-module registry were committed to the priva
 
 Draft review: https://github.com/NahidM42/reusable-software-modules/pull/1
 
-The accepted main-branch registry remains unchanged pending review. Only reusable documentation was uploaded; source workbook and media remain local.
+The accepted main-branch registry remains unchanged pending review. Only reusable documentation was uploaded to the reusable-module repository; the private source workbook and real media remain local.
