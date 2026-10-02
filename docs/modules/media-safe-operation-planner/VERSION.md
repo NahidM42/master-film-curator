@@ -4,9 +4,9 @@ Module: Classification and Safe File Operation Planner
 
 Version: 0.1.0
 
-Source project: local `media-library-curator` (Python package `media_curator`).
+Source project: Master Film Curator (formerly local `media-library-curator`; Python package `master_film_curator`).
 
-Source files: `src/media_curator/planning/classifier.py`, `src/media_curator/planning/renamer.py`, `src/media_curator/planning/planner.py`
+Source files: `src/master_film_curator/planning/classifier.py`, `src/master_film_curator/planning/renamer.py`, `src/master_film_curator/planning/planner.py`
 
 Verification date: 2026-09-30, Asia/Tehran.
 
@@ -14,4 +14,4 @@ Status: implementation and synthetic practical verification passed. Real-archive
 
 Source contract and tests are the authority; re-run them after adapting dependencies or filesystem semantics.
 
-Source implementation Git commit: `d3a135e` (local media-library-curator repository).
+Source implementation Git commit: `d3a135e` (pre-rename local `media-library-curator` repository).

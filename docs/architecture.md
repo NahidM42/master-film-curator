@@ -1,6 +1,6 @@
 # Architecture
 
-Python package `media_curator` contains ten independently documented functional modules. Typer/Rich and optional Textual call the same synchronous core. SQLite stores catalog rows, inventory, probes, candidates, manual decisions, immutable plan JSON, operation manifests and audit events. The source workbook is read-only.
+Python package `master_film_curator` contains ten independently documented functional modules. Typer/Rich and optional Textual call the same synchronous core. SQLite stores catalog rows, inventory, probes, candidates, manual decisions, immutable plan JSON, operation manifests and audit events. The source workbook is read-only.
 
 ```mermaid
 flowchart LR

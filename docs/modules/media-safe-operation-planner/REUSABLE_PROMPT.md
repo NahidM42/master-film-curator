@@ -78,7 +78,7 @@ classification_path(record, quality, config) -> Path; safe_component(value, limi
 
 ## Relevant Files
 
-`src/media_curator/planning/classifier.py`, `src/media_curator/planning/renamer.py`, `src/media_curator/planning/planner.py`
+`src/master_film_curator/planning/classifier.py`, `src/master_film_curator/planning/renamer.py`, `src/master_film_curator/planning/planner.py`
 
 ## Tests
 
@@ -96,7 +96,7 @@ Extras are attached only in unambiguous dedicated movie folders. Unknown episode
 
 ## Integration Points
 
-Source project: local media-library-curator v0.1.0. Composes through validated Config, SQLite helpers and the API contracts above. See source docs/architecture.md and docs/safety.md before transplanting file-operation code.
+Source project: Master Film Curator (formerly local media-library-curator) v0.1.0. Composes through validated Config, SQLite helpers and the API contracts above. See source docs/architecture.md and docs/safety.md before transplanting file-operation code.
 
 ## Expected CLI/TUI Behavior
 

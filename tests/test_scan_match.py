@@ -1,10 +1,10 @@
 import pytest
 from conftest import record
 
-from media_curator.config import MatchingConfig
-from media_curator.matching.confidence import decide
-from media_curator.matching.matcher import candidates_for, match_all, save_decision
-from media_curator.scanner.filesystem import scan
+from master_film_curator.config import MatchingConfig
+from master_film_curator.matching.confidence import decide
+from master_film_curator.matching.matcher import candidates_for, match_all, save_decision
+from master_film_curator.scanner.filesystem import scan
 
 
 @pytest.mark.parametrize(

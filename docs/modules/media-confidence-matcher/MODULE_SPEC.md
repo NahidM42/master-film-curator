@@ -74,7 +74,7 @@ candidates_for(parsed: dict, context: str, catalog: list[dict]) -> list[dict]; d
 
 ## Relevant Files
 
-`src/media_curator/matching/confidence.py`, `src/media_curator/matching/matcher.py`
+`src/master_film_curator/matching/confidence.py`, `src/master_film_curator/matching/matcher.py`
 
 ## Tests
 
@@ -92,7 +92,7 @@ Heuristic confidence is not a calibrated statistical probability. Catalog aliase
 
 ## Integration Points
 
-Source project: local media-library-curator v0.1.0. Composes through validated Config, SQLite helpers and the API contracts above. See source docs/architecture.md and docs/safety.md before transplanting file-operation code.
+Source project: Master Film Curator (formerly local media-library-curator) v0.1.0. Composes through validated Config, SQLite helpers and the API contracts above. See source docs/architecture.md and docs/safety.md before transplanting file-operation code.
 
 ## Expected CLI/TUI Behavior
 

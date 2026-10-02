@@ -3,9 +3,9 @@ from pathlib import Path
 
 from rapidfuzz.fuzz import ratio
 
-from media_curator.db.sqlite import catalog_records, dumps, event, now
-from media_curator.matching.confidence import decide
-from media_curator.matching.normalize import normalize_title
+from master_film_curator.db.sqlite import catalog_records, dumps, event, now
+from master_film_curator.matching.confidence import decide
+from master_film_curator.matching.normalize import normalize_title
 
 
 def candidates_for(parsed: dict, context: str, catalog: list[dict]) -> list[dict]:

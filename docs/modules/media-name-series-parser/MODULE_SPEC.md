@@ -74,7 +74,7 @@ normalize_title(value: str) -> str; parse_filename(value: str) -> dict; parse_pa
 
 ## Relevant Files
 
-`src/media_curator/matching/normalize.py`, `src/media_curator/media/series_parser.py`
+`src/master_film_curator/matching/normalize.py`, `src/master_film_curator/media/series_parser.py`
 
 ## Tests
 
@@ -92,7 +92,7 @@ No transliteration, alternate-title service, absolute anime numbering or multi-e
 
 ## Integration Points
 
-Source project: local media-library-curator v0.1.0. Composes through validated Config, SQLite helpers and the API contracts above. See source docs/architecture.md and docs/safety.md before transplanting file-operation code.
+Source project: Master Film Curator (formerly local media-library-curator) v0.1.0. Composes through validated Config, SQLite helpers and the API contracts above. See source docs/architecture.md and docs/safety.md before transplanting file-operation code.
 
 ## Expected CLI/TUI Behavior
 

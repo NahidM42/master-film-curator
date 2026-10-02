@@ -47,7 +47,7 @@ def parse_filename(value: str) -> dict:
 
 
 def parse_path(path: Path) -> dict:
-    from media_curator.media.series_parser import parse_series
+    from master_film_curator.media.series_parser import parse_series
 
     parsed = parse_filename(path.name)
     series = parse_series(path)

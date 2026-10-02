@@ -3,17 +3,17 @@ from pathlib import Path
 import pytest
 from test_planning import prepare
 
-from media_curator.matching.matcher import match_all
-from media_curator.operations.mover import apply_plan
-from media_curator.operations.rollback import rollback
-from media_curator.operations.verifier import SafetyError
-from media_curator.planning.planner import create_plan
-from media_curator.scanner.filesystem import scan
+from master_film_curator.matching.matcher import match_all
+from master_film_curator.operations.mover import apply_plan
+from master_film_curator.operations.rollback import rollback
+from master_film_curator.operations.verifier import SafetyError
+from master_film_curator.planning.planner import create_plan
+from master_film_curator.scanner.filesystem import scan
 
 
 @pytest.fixture(autouse=True)
 def fake_probe_available(monkeypatch):
-    monkeypatch.setattr("media_curator.operations.mover.require_ffprobe", lambda _: "/fake/ffprobe")
+    monkeypatch.setattr("master_film_curator.operations.mover.require_ffprobe", lambda _: "/fake/ffprobe")
 
 
 def test_dry_run(db, cfg):
@@ -51,7 +51,7 @@ def test_move_rollback_and_idempotency(db, cfg):
 def test_cross_drive(db, cfg, monkeypatch, delete):
     p = prepare(db, cfg)
     plan = create_plan(db, cfg)
-    monkeypatch.setattr("media_curator.operations.mover.same_filesystem", lambda *args: False)
+    monkeypatch.setattr("master_film_curator.operations.mover.same_filesystem", lambda *args: False)
     applied = apply_plan(
         db, cfg, plan["id"], dry_run=False, confirmed=True, delete_source_after_verify=delete
     )
@@ -93,7 +93,7 @@ def test_interrupted_copy(db, cfg, monkeypatch):
         dst.write_bytes(b"partial")
         raise OSError("disk disconnected")
 
-    monkeypatch.setattr("media_curator.operations.mover.copy_payload", fail)
+    monkeypatch.setattr("master_film_curator.operations.mover.copy_payload", fail)
     result = apply_plan(db, cfg, plan["id"], dry_run=False, confirmed=True)
     assert result["status"] == "partial_failure" and p.read_bytes() == b"fake"
     assert not list(cfg.destination_root.rglob("*.partial"))
@@ -104,7 +104,7 @@ def test_corrupt_copy_preserves_source(db, cfg, monkeypatch):
     p = prepare(db, cfg)
     plan = create_plan(db, cfg)
     monkeypatch.setattr(
-        "media_curator.operations.mover.copy_payload", lambda src, dst: dst.write_bytes(b"evil")
+        "master_film_curator.operations.mover.copy_payload", lambda src, dst: dst.write_bytes(b"evil")
     )
     result = apply_plan(db, cfg, plan["id"], dry_run=False, confirmed=True)
     assert result["status"] == "partial_failure" and p.read_bytes() == b"fake"
@@ -139,7 +139,7 @@ def test_stale_plan(db, cfg):
 def test_long_title_and_unknown_language_are_idempotent(db, cfg):
     from conftest import record
 
-    from media_curator.db.sqlite import dumps
+    from master_film_curator.db.sqlite import dumps
 
     title = "This Is An Exceptionally Long Movie Title With Many More Words Than The Path Can Hold"
     r = record(5, title, 2020)
@@ -157,7 +157,7 @@ def test_long_title_and_unknown_language_are_idempotent(db, cfg):
 
 
 def test_corruption_after_publication_does_not_remove_source(db, cfg, monkeypatch):
-    from media_curator.operations import mover
+    from master_film_curator.operations import mover
 
     original_publish = mover.publish_no_replace
     p = prepare(db, cfg)
@@ -178,7 +178,7 @@ def test_disk_full_preflight(db, cfg, monkeypatch):
 
     p = prepare(db, cfg)
     plan = create_plan(db, cfg)
-    monkeypatch.setattr("media_curator.operations.mover.shutil.disk_usage", lambda _: SimpleNamespace(free=0))
+    monkeypatch.setattr("master_film_curator.operations.mover.shutil.disk_usage", lambda _: SimpleNamespace(free=0))
     with pytest.raises(SafetyError, match="space"):
         apply_plan(db, cfg, plan["id"], dry_run=False, confirmed=True)
     assert p.read_bytes() == b"fake" and not cfg.destination_root.exists()
@@ -191,13 +191,13 @@ def test_locked_source_copy_failure(db, cfg, monkeypatch):
     def locked(*args):
         raise PermissionError("file is locked")
 
-    monkeypatch.setattr("media_curator.operations.mover.copy_payload", locked)
+    monkeypatch.setattr("master_film_curator.operations.mover.copy_payload", locked)
     assert apply_plan(db, cfg, plan["id"], dry_run=False, confirmed=True)["status"] == "partial_failure"
     assert p.exists()
 
 
 def test_atomic_publish_does_not_overwrite_racing_file(tmp_path):
-    from media_curator.operations.mover import publish_no_replace
+    from master_film_curator.operations.mover import publish_no_replace
 
     src, dst = tmp_path / "temp", tmp_path / "existing"
     src.write_bytes(b"new")

@@ -78,7 +78,7 @@ app: typer.Typer; main() -> None; ReviewApp(db): Textual App; session(ctx) -> co
 
 ## Relevant Files
 
-`src/media_curator/cli/commands.py`, `src/media_curator/tui/review_app.py`, `src/media_curator/main.py`
+`src/master_film_curator/cli/commands.py`, `src/master_film_curator/tui/review_app.py`, `src/master_film_curator/main.py`
 
 ## Tests
 
@@ -96,7 +96,7 @@ No browser UI, remote service or background daemon. TUI requires a suitable term
 
 ## Integration Points
 
-Source project: local media-library-curator v0.1.0. Composes through validated Config, SQLite helpers and the API contracts above. See source docs/architecture.md and docs/safety.md before transplanting file-operation code.
+Source project: Master Film Curator (formerly local media-library-curator) v0.1.0. Composes through validated Config, SQLite helpers and the API contracts above. See source docs/architecture.md and docs/safety.md before transplanting file-operation code.
 
 ## Expected CLI/TUI Behavior
 
@@ -104,4 +104,4 @@ doctor, import-catalog, scan, match, quality, review, plan, report, apply, rollb
 
 ## Example Input / Output
 
-media-curator review --file-id 12 --action accept --master-id 545 stores an explicit match; no media is moved until a later approved Plan.
+film-curator review --file-id 12 --action accept --master-id 545 stores an explicit match; no media is moved until a later approved Plan.

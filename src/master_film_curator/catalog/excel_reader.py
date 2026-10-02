@@ -3,8 +3,8 @@ from pathlib import Path
 
 from openpyxl import load_workbook
 
-from media_curator.catalog.models import CatalogRecord
-from media_curator.db.sqlite import event
+from master_film_curator.catalog.models import CatalogRecord
+from master_film_curator.db.sqlite import event
 
 MAIN = "Rev07_Channel_Value_Ranking"
 FIELDS = {

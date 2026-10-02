@@ -1,6 +1,6 @@
 def write_summary(path, summary):
     lines = [
-        "# Media Library Curator",
+        "# Master Film Curator",
         "",
         "Local inventory report. Excel scores and tiers are preserved verbatim.",
         "",

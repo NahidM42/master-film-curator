@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from media_curator.media.quality import quality_folder
+from master_film_curator.media.quality import quality_folder
 
 PRIORITIES = {"1": "01_Essential", "2": "02_High", "3": "03_Medium", "4": "04_Low", "5": "05_Skip_For_Now"}
 

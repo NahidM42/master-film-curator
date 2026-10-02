@@ -78,7 +78,7 @@ require_ffprobe(executable="ffprobe") -> str absolute executable; probe(path, ex
 
 ## Relevant Files
 
-`src/media_curator/media/ffprobe.py`, `src/media_curator/media/quality.py`
+`src/master_film_curator/media/ffprobe.py`, `src/master_film_curator/media/quality.py`
 
 ## Tests
 
@@ -96,7 +96,7 @@ Resolution class does not measure subjective quality, upscaling, frame-by-frame 
 
 ## Integration Points
 
-Source project: local media-library-curator v0.1.0. Composes through validated Config, SQLite helpers and the API contracts above. See source docs/architecture.md and docs/safety.md before transplanting file-operation code.
+Source project: Master Film Curator (formerly local media-library-curator) v0.1.0. Composes through validated Config, SQLite helpers and the API contracts above. See source docs/architecture.md and docs/safety.md before transplanting file-operation code.
 
 ## Expected CLI/TUI Behavior
 

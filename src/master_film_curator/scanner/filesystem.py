@@ -2,9 +2,9 @@ import json
 import os
 from pathlib import Path
 
-from media_curator.db.sqlite import dumps, event
-from media_curator.matching.normalize import parse_path
-from media_curator.scanner.media_detection import VIDEO_EXTENSIONS, is_extra
+from master_film_curator.db.sqlite import dumps, event
+from master_film_curator.matching.normalize import parse_path
+from master_film_curator.scanner.media_detection import VIDEO_EXTENSIONS, is_extra
 
 
 def scan(db, config) -> dict:

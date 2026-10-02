@@ -4,13 +4,13 @@ import subprocess
 from pathlib import Path
 from uuid import uuid4
 
-from media_curator.db.sqlite import catalog_records, dumps, event, now
-from media_curator.matching.normalize import parse_filename
-from media_curator.media.ffprobe import probe
-from media_curator.operations.verifier import SafetyError, case_collision, digest, snapshot
-from media_curator.planning.classifier import classification_path
-from media_curator.planning.renamer import destination_for, safe_component, sidecar_name, windows_length
-from media_curator.scanner.media_detection import SIDECAR_EXTENSIONS
+from master_film_curator.db.sqlite import catalog_records, dumps, event, now
+from master_film_curator.matching.normalize import parse_filename
+from master_film_curator.media.ffprobe import probe
+from master_film_curator.operations.verifier import SafetyError, case_collision, digest, snapshot
+from master_film_curator.planning.classifier import classification_path
+from master_film_curator.planning.renamer import destination_for, safe_component, sidecar_name, windows_length
+from master_film_curator.scanner.media_detection import SIDECAR_EXTENSIONS
 
 
 def plan_digest(plan: dict) -> str:

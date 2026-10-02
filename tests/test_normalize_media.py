@@ -2,10 +2,10 @@ from pathlib import Path
 
 import pytest
 
-from media_curator.matching.normalize import normalize_title, parse_filename, parse_path
-from media_curator.media.ffprobe import probe, require_ffprobe
-from media_curator.media.quality import resolution_class
-from media_curator.media.series_parser import parse_series
+from master_film_curator.matching.normalize import normalize_title, parse_filename, parse_path
+from master_film_curator.media.ffprobe import probe, require_ffprobe
+from master_film_curator.media.quality import resolution_class
+from master_film_curator.media.series_parser import parse_series
 
 
 @pytest.mark.parametrize(
@@ -75,7 +75,7 @@ def test_probe_ignores_cover(monkeypatch):
     import json
     from types import SimpleNamespace
 
-    monkeypatch.setattr("media_curator.media.ffprobe.require_ffprobe", lambda _: "ffprobe")
+    monkeypatch.setattr("master_film_curator.media.ffprobe.require_ffprobe", lambda _: "ffprobe")
     monkeypatch.setattr(
         "subprocess.run",
         lambda *a, **k: SimpleNamespace(

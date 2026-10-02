@@ -1,7 +1,7 @@
 import pytest
 
-from media_curator.config import Config
-from media_curator.db.sqlite import connect, dumps
+from master_film_curator.config import Config
+from master_film_curator.db.sqlite import connect, dumps
 
 
 def record(mid=1, title="Persona", year=1966, **kw):

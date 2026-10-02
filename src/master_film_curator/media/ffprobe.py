@@ -3,8 +3,8 @@ import shutil
 import subprocess
 from pathlib import Path
 
-from media_curator.db.sqlite import dumps, event
-from media_curator.media.quality import resolution_class
+from master_film_curator.db.sqlite import dumps, event
+from master_film_curator.media.quality import resolution_class
 
 
 def require_ffprobe(executable: str = "ffprobe") -> str:

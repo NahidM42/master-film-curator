@@ -4,7 +4,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from uuid import uuid4
 
-from media_curator.db.sqlite import catalog_records
+from master_film_curator.db.sqlite import catalog_records
 
 CATALOG_FIELDS = [
     "master_id",
@@ -190,7 +190,7 @@ def generate_reports(db, config) -> Path:
     (folder / "rollback_manifest.json").write_text(
         json.dumps({"operations": operations}, ensure_ascii=False, indent=2), encoding="utf-8"
     )
-    from media_curator.reports.summary import write_summary
+    from master_film_curator.reports.summary import write_summary
 
     write_summary(folder / "summary.md", summary)
     return folder

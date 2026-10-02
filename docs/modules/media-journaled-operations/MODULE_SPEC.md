@@ -74,7 +74,7 @@ apply_plan(db, config, plan_id, *, dry_run=True, confirmed=False, delete_source_
 
 ## Relevant Files
 
-`src/media_curator/operations/verifier.py`, `src/media_curator/operations/mover.py`, `src/media_curator/operations/rollback.py`
+`src/master_film_curator/operations/verifier.py`, `src/master_film_curator/operations/mover.py`, `src/master_film_curator/operations/rollback.py`
 
 ## Tests
 
@@ -92,7 +92,7 @@ Not an atomic transaction across an entire archive or multiple drives. Hard kill
 
 ## Integration Points
 
-Source project: local media-library-curator v0.1.0. Composes through validated Config, SQLite helpers and the API contracts above. See source docs/architecture.md and docs/safety.md before transplanting file-operation code.
+Source project: Master Film Curator (formerly local media-library-curator) v0.1.0. Composes through validated Config, SQLite helpers and the API contracts above. See source docs/architecture.md and docs/safety.md before transplanting file-operation code.
 
 ## Expected CLI/TUI Behavior
 

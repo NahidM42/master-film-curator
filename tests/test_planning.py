@@ -2,12 +2,12 @@ from pathlib import Path
 
 from conftest import record
 
-from media_curator.matching.matcher import match_all, save_decision
-from media_curator.operations.verifier import case_collision
-from media_curator.planning.classifier import classification_path
-from media_curator.planning.planner import create_plan
-from media_curator.planning.renamer import destination_for, safe_component, sidecar_name, windows_length
-from media_curator.scanner.filesystem import scan
+from master_film_curator.matching.matcher import match_all, save_decision
+from master_film_curator.operations.verifier import case_collision
+from master_film_curator.planning.classifier import classification_path
+from master_film_curator.planning.planner import create_plan
+from master_film_curator.planning.renamer import destination_for, safe_component, sidecar_name, windows_length
+from master_film_curator.scanner.filesystem import scan
 
 
 def prepare(db, cfg, name="Persona.1966.1080p.mkv"):

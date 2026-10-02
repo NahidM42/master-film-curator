@@ -9,17 +9,17 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
-from media_curator.catalog.excel_reader import import_catalog as do_import
-from media_curator.catalog.excel_reader import read_catalog
-from media_curator.config import load_config
-from media_curator.db.sqlite import connect
-from media_curator.matching.matcher import match_all, save_decision
-from media_curator.media.ffprobe import require_ffprobe, run_quality
-from media_curator.operations.mover import apply_plan, existing_ancestor
-from media_curator.operations.rollback import rollback as do_rollback
-from media_curator.planning.planner import create_plan, load_plan
-from media_curator.reports.csv_reports import generate_reports
-from media_curator.scanner.filesystem import scan as do_scan
+from master_film_curator.catalog.excel_reader import import_catalog as do_import
+from master_film_curator.catalog.excel_reader import read_catalog
+from master_film_curator.config import load_config
+from master_film_curator.db.sqlite import connect
+from master_film_curator.matching.matcher import match_all, save_decision
+from master_film_curator.media.ffprobe import require_ffprobe, run_quality
+from master_film_curator.operations.mover import apply_plan, existing_ancestor
+from master_film_curator.operations.rollback import rollback as do_rollback
+from master_film_curator.planning.planner import create_plan, load_plan
+from master_film_curator.reports.csv_reports import generate_reports
+from master_film_curator.scanner.filesystem import scan as do_scan
 
 app = typer.Typer(
     no_args_is_help=True,
@@ -99,8 +99,8 @@ def doctor(ctx: typer.Context):
     ]:
         try:
             parent = existing_ancestor(path)
-            from media_curator.operations.mover import mounted_windows_drive
-            from media_curator.operations.verifier import no_symlinks
+            from master_film_curator.operations.mover import mounted_windows_drive
+            from master_film_curator.operations.verifier import no_symlinks
 
             mounted_windows_drive(path)
             no_symlinks(path)
@@ -161,7 +161,7 @@ def review(
     with session(ctx) as (db, cfg):
         if tui:
             try:
-                from media_curator.tui.review_app import ReviewApp
+                from master_film_curator.tui.review_app import ReviewApp
             except ImportError as exc:
                 raise RuntimeError("Install optional TUI: uv sync --extra tui") from exc
             ReviewApp(db).run()
@@ -196,7 +196,7 @@ def plan(ctx: typer.Context):
     with session(ctx) as (db, cfg):
         result = create_plan(db, cfg)
         show_json({"plan_id": result["id"], "summary": result["summary"], "blocked": result["blocked"]})
-        console.print("Inspect all proposed paths: media-curator --config <config.yaml> report", markup=False)
+        console.print("Inspect all proposed paths: film-curator --config <config.yaml> report", markup=False)
 
 
 @app.command()

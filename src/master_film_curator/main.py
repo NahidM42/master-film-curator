@@ -1,4 +1,4 @@
-from media_curator.cli.commands import app
+from master_film_curator.cli.commands import app
 
 
 def main():

@@ -4,7 +4,7 @@ from textual.app import App, ComposeResult
 from textual.containers import Horizontal
 from textual.widgets import Button, DataTable, Footer, Header, Input, Static
 
-from media_curator.matching.matcher import save_decision
+from master_film_curator.matching.matcher import save_decision
 
 
 class ReviewApp(App):

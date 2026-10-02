@@ -4,9 +4,9 @@ Module: Media Filename and Episode Parser
 
 Version: 0.1.0
 
-Source project: local `media-library-curator` (Python package `media_curator`).
+Source project: Master Film Curator (formerly local `media-library-curator`; Python package `master_film_curator`).
 
-Source files: `src/media_curator/matching/normalize.py`, `src/media_curator/media/series_parser.py`
+Source files: `src/master_film_curator/matching/normalize.py`, `src/master_film_curator/media/series_parser.py`
 
 Verification date: 2026-09-30, Asia/Tehran.
 
@@ -14,4 +14,4 @@ Status: implementation and synthetic practical verification passed. Real-archive
 
 Source contract and tests are the authority; re-run them after adapting dependencies or filesystem semantics.
 
-Source implementation Git commit: `d3a135e` (local media-library-curator repository).
+Source implementation Git commit: `d3a135e` (pre-rename local `media-library-curator` repository).

@@ -8,16 +8,16 @@ from pathlib import Path
 import yaml
 from fake_library import make_library
 
-from media_curator.catalog.excel_reader import import_catalog
-from media_curator.config import Config
-from media_curator.db.sqlite import connect
-from media_curator.matching.matcher import match_all
-from media_curator.media.ffprobe import require_ffprobe, run_quality
-from media_curator.operations.mover import apply_plan
-from media_curator.operations.rollback import rollback
-from media_curator.planning.planner import create_plan
-from media_curator.reports.csv_reports import generate_reports
-from media_curator.scanner.filesystem import scan
+from master_film_curator.catalog.excel_reader import import_catalog
+from master_film_curator.config import Config
+from master_film_curator.db.sqlite import connect
+from master_film_curator.matching.matcher import match_all
+from master_film_curator.media.ffprobe import require_ffprobe, run_quality
+from master_film_curator.operations.mover import apply_plan
+from master_film_curator.operations.rollback import rollback
+from master_film_curator.planning.planner import create_plan
+from master_film_curator.reports.csv_reports import generate_reports
+from master_film_curator.scanner.filesystem import scan
 
 
 def main():

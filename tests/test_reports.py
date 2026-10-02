@@ -3,8 +3,8 @@ import json
 
 from test_planning import prepare
 
-from media_curator.planning.planner import create_plan
-from media_curator.reports.csv_reports import csv_value, generate_reports
+from master_film_curator.planning.planner import create_plan
+from master_film_curator.reports.csv_reports import csv_value, generate_reports
 
 
 def test_reports(db, cfg):

@@ -4,9 +4,9 @@ import json
 import yaml
 from typer.testing import CliRunner
 
-from media_curator.cli.commands import app
-from media_curator.matching.matcher import match_all
-from media_curator.scanner.filesystem import scan
+from master_film_curator.cli.commands import app
+from master_film_curator.matching.matcher import match_all
+from master_film_curator.scanner.filesystem import scan
 
 runner = CliRunner()
 
@@ -42,7 +42,7 @@ def test_tui_accept(db, cfg):
     import pytest
 
     pytest.importorskip("textual")
-    from media_curator.tui.review_app import ReviewApp
+    from master_film_curator.tui.review_app import ReviewApp
 
     (cfg.sources[0] / "Shame.mkv").write_bytes(b"fake")
     scan(db, cfg)

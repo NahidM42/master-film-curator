@@ -78,7 +78,7 @@ scan(db, config: Config) -> dict[indexed,changed,errors,skipped_symlinks]; is_ex
 
 ## Relevant Files
 
-`src/media_curator/scanner/filesystem.py`, `src/media_curator/scanner/media_detection.py`
+`src/master_film_curator/scanner/filesystem.py`, `src/master_film_curator/scanner/media_detection.py`
 
 ## Tests
 
@@ -96,7 +96,7 @@ Video-only index; associated sidecars are enumerated during planning. No full-me
 
 ## Integration Points
 
-Source project: local media-library-curator v0.1.0. Composes through validated Config, SQLite helpers and the API contracts above. See source docs/architecture.md and docs/safety.md before transplanting file-operation code.
+Source project: Master Film Curator (formerly local media-library-curator) v0.1.0. Composes through validated Config, SQLite helpers and the API contracts above. See source docs/architecture.md and docs/safety.md before transplanting file-operation code.
 
 ## Expected CLI/TUI Behavior
 

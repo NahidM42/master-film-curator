@@ -74,7 +74,7 @@ load_config(path: Path) -> Config; connect(path: Path, *, lock: bool=True) -> co
 
 ## Relevant Files
 
-`src/media_curator/config.py`, `src/media_curator/db/sqlite.py`
+`src/master_film_curator/config.py`, `src/master_film_curator/db/sqlite.py`
 
 ## Tests
 
@@ -92,7 +92,7 @@ Schema v1 has no cross-version migration framework. SQLite/log locations must be
 
 ## Integration Points
 
-Source project: local media-library-curator v0.1.0. Composes through validated Config, SQLite helpers and the API contracts above. See source docs/architecture.md and docs/safety.md before transplanting file-operation code.
+Source project: Master Film Curator (formerly local media-library-curator) v0.1.0. Composes through validated Config, SQLite helpers and the API contracts above. See source docs/architecture.md and docs/safety.md before transplanting file-operation code.
 
 ## Expected CLI/TUI Behavior
 

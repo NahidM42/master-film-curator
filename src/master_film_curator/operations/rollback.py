@@ -1,15 +1,15 @@
 import json
 from pathlib import Path
 
-from media_curator.db.sqlite import event, now
-from media_curator.operations.mover import (
+from master_film_curator.db.sqlite import event, now
+from master_film_curator.operations.mover import (
     copy_payload,
     fsync_directory,
     log_entry,
     persist_manifest,
     publish_no_replace,
 )
-from media_curator.operations.verifier import (
+from master_film_curator.operations.verifier import (
     SafetyError,
     case_collision,
     check_snapshot,
@@ -46,7 +46,7 @@ def rollback(db, config, operation_id, *, dry_run=True, confirmed=False):
         src, dst = Path(entry["source"]), Path(entry["destination"])
         result = {"source": str(src), "destination": str(dst), "status": "safe"}
         try:
-            from media_curator.operations.mover import mounted_windows_drive
+            from master_film_curator.operations.mover import mounted_windows_drive
 
             mounted_windows_drive(src)
             mounted_windows_drive(dst)

@@ -8,7 +8,7 @@ from pathlib import Path
 
 from openpyxl import load_workbook
 
-from media_curator.catalog.excel_reader import MAIN, sheet_rows
+from master_film_curator.catalog.excel_reader import MAIN, sheet_rows
 
 
 def inspect(path):

@@ -74,7 +74,7 @@ read_catalog(path: Path, expected_count: int|None=570) -> list[CatalogRecord]; i
 
 ## Relevant Files
 
-`src/media_curator/catalog/models.py`, `src/media_curator/catalog/excel_reader.py`
+`src/master_film_curator/catalog/models.py`, `src/master_film_curator/catalog/excel_reader.py`
 
 ## Tests
 
@@ -92,7 +92,7 @@ Header mapping is specific to Rev07. No external enrichment or arbitrary workboo
 
 ## Integration Points
 
-Source project: local media-library-curator v0.1.0. Composes through validated Config, SQLite helpers and the API contracts above. See source docs/architecture.md and docs/safety.md before transplanting file-operation code.
+Source project: Master Film Curator (formerly local media-library-curator) v0.1.0. Composes through validated Config, SQLite helpers and the API contracts above. See source docs/architecture.md and docs/safety.md before transplanting file-operation code.
 
 ## Expected CLI/TUI Behavior
 

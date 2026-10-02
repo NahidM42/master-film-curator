@@ -1,4 +1,4 @@
-from media_curator.config import QualityConfig
+from master_film_curator.config import QualityConfig
 
 
 def resolution_class(width: int | None, height: int | None, config: QualityConfig | None = None) -> str:

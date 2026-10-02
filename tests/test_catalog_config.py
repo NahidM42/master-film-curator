@@ -3,9 +3,9 @@ from pathlib import Path
 
 import pytest
 
-from media_curator.catalog.excel_reader import import_catalog, read_catalog
-from media_curator.config import Config, load_config
-from media_curator.db.sqlite import catalog_records, connect
+from master_film_curator.catalog.excel_reader import import_catalog, read_catalog
+from master_film_curator.config import Config, load_config
+from master_film_curator.db.sqlite import catalog_records, connect
 
 WORKBOOK = Path(__file__).parents[1] / "private-catalog.xlsx"
 

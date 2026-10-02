@@ -1,4 +1,4 @@
-# Media Library Curator
+# Master Film Curator
 
 برنامهٔ محلی Python برای مدیریت ایمن آرشیو فیلم و سریال، با Excel Rev07 به‌عنوان مرجع قطعی طبقه‌بندی. امتیازها، Tier و اولویت‌ها تغییر نمی‌کنند. برنامه به سرویس آنلاین یا کلید API نیاز ندارد.
 
@@ -10,7 +10,7 @@
 uv sync --extra tui
 sudo apt update
 sudo apt install ffmpeg
-uv run media-curator --help
+uv run film-curator --help
 ```
 
 Python 3.12 یا جدیدتر لازم است. برای نصب بدون Textual از `uv sync` استفاده کنید؛ تمام قابلیت‌های مرور از CLI هم در دسترس‌اند. `ffprobe` باید در PATH باشد یا مسیر فایل اجرایی آن در `config.yaml` مشخص شود. نبود آن مانع `quality` و Apply واقعی است؛ اسکن و تهیهٔ Plan همچنان ممکن است.
@@ -59,21 +59,21 @@ max_component_length: 110
 ## گردش کار ایمن
 
 ```bash
-uv run media-curator doctor
-uv run media-curator import-catalog
-uv run media-curator scan
-uv run media-curator match
-uv run media-curator quality
-uv run media-curator review
-uv run media-curator plan
-uv run media-curator report
-uv run media-curator status
+uv run film-curator doctor
+uv run film-curator import-catalog
+uv run film-curator scan
+uv run film-curator match
+uv run film-curator quality
+uv run film-curator review
+uv run film-curator plan
+uv run film-curator report
+uv run film-curator status
 ```
 
 برای تنظیمات متفاوت، `--config` را **قبل از فرمان** بیاورید:
 
 ```bash
-uv run media-curator --config /path/to/config.yaml scan
+uv run film-curator --config /path/to/config.yaml scan
 ```
 
 `scan` فقط رسانه‌ها را می‌خواند؛ دادهٔ برنامه در SQLite ثبت می‌شود. پوشهٔ مقصد نیز هنگام وجود، برای تشخیص اجرای مجدد اسکن می‌شود. مسیرهای symlink دنبال نمی‌شوند. قطع Drive باعث کنار گذاشتن رکوردهای آن از موجودی فعال می‌شود و در نتیجهٔ اسکن گزارش می‌گردد.
@@ -83,12 +83,12 @@ uv run media-curator --config /path/to/config.yaml scan
 ## مرور دستی
 
 ```bash
-uv run media-curator review --interactive
-uv run media-curator review --tui
-uv run media-curator review --file-id 12 --action accept --master-id 545
-uv run media-curator review --file-id 13 --action reject
-uv run media-curator review --file-id 14 --action not_in_catalog
-uv run media-curator review --file-id 15 --action ignore
+uv run film-curator review --interactive
+uv run film-curator review --tui
+uv run film-curator review --file-id 12 --action accept --master-id 545
+uv run film-curator review --file-id 13 --action reject
+uv run film-curator review --file-id 14 --action not_in_catalog
+uv run film-curator review --file-id 15 --action ignore
 ```
 
 می‌توانید هر Master ID معتبر را انتخاب کنید. `reject` یعنی رد تطبیق این فایل و توقف تا تصمیم جدید؛ فقط حذف یکی از پیشنهادها نیست. `ignore` در اسکن‌های بعدی همین مسیر باقی می‌ماند. تغییر محتوای فایل، تأییدهای قبلی را باطل می‌کند. برای لغو تصمیم، همان فایل را دوباره با عمل مناسب review کنید.
@@ -98,8 +98,8 @@ uv run media-curator review --file-id 15 --action ignore
 ## Apply؛ فقط پس از بررسی Plan
 
 ```bash
-uv run media-curator apply --plan PLAN_ID --dry-run
-uv run media-curator apply --plan PLAN_ID
+uv run film-curator apply --plan PLAN_ID --dry-run
+uv run film-curator apply --plan PLAN_ID
 ```
 
 فرمان دوم خلاصه را نشان می‌دهد و تأیید صریح می‌خواهد. `--yes` همان تأیید صریح برای اجرای غیرتعاملی است. Apply شناسهٔ عملیات را برمی‌گرداند.
@@ -107,7 +107,7 @@ uv run media-curator apply --plan PLAN_ID
 در جابه‌جایی میان فایل‌سیستم‌ها، پیش‌فرض فقط کپی تأییدشده است و مبدأ باقی می‌ماند. حذف مبدأ پس از کپی بین دو Drive نیاز به پرچم مستقل دارد:
 
 ```bash
-uv run media-curator apply --plan PLAN_ID --delete-source-after-verify
+uv run film-curator apply --plan PLAN_ID --delete-source-after-verify
 ```
 
 در یک فایل‌سیستم، Move تأییدشده مبدأ را پس از انتشار و تأیید مقصد حذف می‌کند. برای سازگاری و ایمنی، این نسخه حتی Move هم‌درایو را با کپی موقت و تأیید انجام می‌دهد؛ فضای آزاد برای کل Plan لازم است. اندازه و زمان/شناسهٔ فایل دوباره بررسی می‌شوند. انتشار مقصد با روش atomic و no-replace انجام می‌شود. هر collision اجرای Plan را متوقف می‌کند؛ حذف و replace خودکار وجود ندارد.
@@ -117,8 +117,8 @@ uv run media-curator apply --plan PLAN_ID --delete-source-after-verify
 ## Rollback و بازیابی
 
 ```bash
-uv run media-curator rollback OPERATION_ID
-uv run media-curator rollback OPERATION_ID --execute
+uv run film-curator rollback OPERATION_ID
+uv run film-curator rollback OPERATION_ID --execute
 ```
 
 اولی فقط ایمنی بازگردانی را بررسی می‌کند؛ دومی تأیید می‌گیرد. اگر مبدأ با فایل دیگری اشغال شده، مقصد تغییر کرده یا مالکیت فایل پس از قطع ناگهانی مشخص نیست، عملیات مربوطه دست‌نخورده باقی می‌ماند و دلیل گزارش می‌شود. پوشه‌های خالی حذف نمی‌شوند.

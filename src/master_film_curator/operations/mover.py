@@ -8,16 +8,16 @@ import shutil
 from pathlib import Path
 from uuid import uuid4
 
-from media_curator.db.sqlite import dumps, event, now
-from media_curator.media.ffprobe import require_ffprobe
-from media_curator.operations.verifier import (
+from master_film_curator.db.sqlite import dumps, event, now
+from master_film_curator.media.ffprobe import require_ffprobe
+from master_film_curator.operations.verifier import (
     SafetyError,
     case_collision,
     check_snapshot,
     no_symlinks,
     snapshot,
 )
-from media_curator.planning.planner import load_plan
+from master_film_curator.planning.planner import load_plan
 
 
 def atomic_json(path: Path, value):
