@@ -7,24 +7,62 @@ from openpyxl import Workbook
 from openpyxl.styles import Alignment, Font, PatternFill
 
 MAIN_HEADERS = [
-    "Rank", "Master ID", "Title", "Year", "Director / Creator", "Genre",
-    "Rev06 Channel", "Rev07 Channel", "Rev07 Taste Fit", "Rev07 Tier",
-    "Rev07 Viewing Priority", "Score Delta", "Analytical Note",
+    "Rank",
+    "Master ID",
+    "Title",
+    "Year",
+    "Director / Creator",
+    "Genre",
+    "Rev06 Channel",
+    "Rev07 Channel",
+    "Rev07 Taste Fit",
+    "Rev07 Tier",
+    "Rev07 Viewing Priority",
+    "Score Delta",
+    "Analytical Note",
     "Rev07 Calibration Reason",
 ]
 FLAG_HEADERS = [
-    "Master ID", "Title", "Year", "Director", "Genre", "Rev07 Channel",
-    "Rev07 Taste", "Tier", "Viewing Priority", "Why / Note",
+    "Master ID",
+    "Title",
+    "Year",
+    "Director",
+    "Genre",
+    "Rev07 Channel",
+    "Rev07 Taste",
+    "Tier",
+    "Viewing Priority",
+    "Why / Note",
 ]
 TOP_HEADERS = [
-    "Rank", "Master ID", "Title", "Year", "Director", "Rev07 Channel",
-    "Rev07 Taste", "Tier", "Key Theme", "Central Question",
-    "Possible Episode Angle", "Analytical Note",
+    "Rank",
+    "Master ID",
+    "Title",
+    "Year",
+    "Director",
+    "Rev07 Channel",
+    "Rev07 Taste",
+    "Tier",
+    "Key Theme",
+    "Central Question",
+    "Possible Episode Angle",
+    "Analytical Note",
 ]
 AUDIT_HEADERS = [
-    "Master ID", "Title", "Year", "Director", "Rev06 Channel", "Rev07 Channel",
-    "Delta", "Rev06 Taste", "Rev07 Taste", "Rev06 Tier", "Rev07 Tier",
-    "Rev06 Priority", "Rev07 Priority", "Rev06 Reason",
+    "Master ID",
+    "Title",
+    "Year",
+    "Director",
+    "Rev06 Channel",
+    "Rev07 Channel",
+    "Delta",
+    "Rev06 Taste",
+    "Rev07 Taste",
+    "Rev06 Tier",
+    "Rev07 Tier",
+    "Rev06 Priority",
+    "Rev07 Priority",
+    "Rev06 Reason",
     "Rev07 Calibration Reason",
 ]
 
@@ -101,30 +139,40 @@ AUDIT_IDS = {1001, 1002, 1003, 1004, 1007, 1008, 1015, 1022, 1031, 1040, 1050, 1
 def build_records():
     tiers = ["S", "A", "A", "B", "B", "B", "C", "C", "D", "A"]
     priorities = [
-        "1 — Essential", "2 — High", "2 — High", "3 — Medium", "3 — Medium",
-        "4 — Low", "5 — Skip for Now", "3 — Medium", "4 — Low", "1 — Essential",
+        "1 — Essential",
+        "2 — High",
+        "2 — High",
+        "3 — Medium",
+        "3 — Medium",
+        "4 — Low",
+        "5 — Skip for Now",
+        "3 — Medium",
+        "4 — Low",
+        "1 — Essential",
     ]
     rows = []
     for index, (title, year, director, genre) in enumerate(TITLES, start=1):
         channel = 100 - ((index * 7) % 41)
         taste = 98 - ((index * 11) % 43)
         rev06 = max(40, channel - ((index % 5) - 2))
-        rows.append({
-            "Rank": index,
-            "Master ID": 1000 + index,
-            "Title": title,
-            "Year": year,
-            "Director / Creator": director,
-            "Genre": genre,
-            "Rev06 Channel": rev06,
-            "Rev07 Channel": channel,
-            "Rev07 Taste Fit": taste,
-            "Rev07 Tier": tiers[(index - 1) % len(tiers)],
-            "Rev07 Viewing Priority": priorities[(index - 1) % len(priorities)],
-            "Score Delta": channel - rev06,
-            "Analytical Note": f"Synthetic fixture record {index}; fictional metadata for public demonstration.",
-            "Rev07 Calibration Reason": "Synthetic calibration field used to exercise importer and reporting behavior.",
-        })
+        rows.append(
+            {
+                "Rank": index,
+                "Master ID": 1000 + index,
+                "Title": title,
+                "Year": year,
+                "Director / Creator": director,
+                "Genre": genre,
+                "Rev06 Channel": rev06,
+                "Rev07 Channel": channel,
+                "Rev07 Taste Fit": taste,
+                "Rev07 Tier": tiers[(index - 1) % len(tiers)],
+                "Rev07 Viewing Priority": priorities[(index - 1) % len(priorities)],
+                "Score Delta": channel - rev06,
+                "Analytical Note": f"Synthetic fixture record {index}; fictional metadata for public demonstration.",
+                "Rev07 Calibration Reason": "Synthetic calibration field used to exercise importer and reporting behavior.",
+            }
+        )
     overrides = {
         1001: (100, 95, "S", "1 — Essential"),
         1002: (94, 89, "A", "2 — High"),
@@ -162,7 +210,13 @@ def style_sheet(sheet):
             width = 22
         elif header in {"Genre", "Rev07 Viewing Priority", "Viewing Priority"}:
             width = 20
-        elif header in {"Analytical Note", "Rev07 Calibration Reason", "Why / Note", "Possible Episode Angle", "Central Question"}:
+        elif header in {
+            "Analytical Note",
+            "Rev07 Calibration Reason",
+            "Why / Note",
+            "Possible Episode Angle",
+            "Central Question",
+        }:
             width = 36
         elif header in {"Key Theme", "Rev06 Reason"}:
             width = 26
@@ -183,11 +237,20 @@ def flag_rows(records_by_id, ids, label):
     rows = []
     for master_id in sorted(ids):
         row = records_by_id[master_id]
-        rows.append([
-            master_id, row["Title"], row["Year"], row["Director / Creator"], row["Genre"],
-            row["Rev07 Channel"], row["Rev07 Taste Fit"], row["Rev07 Tier"],
-            row["Rev07 Viewing Priority"], f"Synthetic {label} flag for public demo coverage.",
-        ])
+        rows.append(
+            [
+                master_id,
+                row["Title"],
+                row["Year"],
+                row["Director / Creator"],
+                row["Genre"],
+                row["Rev07 Channel"],
+                row["Rev07 Taste Fit"],
+                row["Rev07 Tier"],
+                row["Rev07 Viewing Priority"],
+                f"Synthetic {label} flag for public demo coverage.",
+            ]
+        )
     return rows
 
 
@@ -200,37 +263,59 @@ def generate(output: Path):
     workbook.remove(workbook.active)
 
     append_sheet(
-        workbook, "Rev07_Channel_Value_Ranking", MAIN_HEADERS,
+        workbook,
+        "Rev07_Channel_Value_Ranking",
+        MAIN_HEADERS,
         [[row[h] for h in MAIN_HEADERS] for row in records],
     )
 
     taste = sorted(records, key=lambda row: (-row["Rev07 Taste Fit"], row["Master ID"]))
     append_sheet(
-        workbook, "Rev07_Taste_Fit_Ranking", MAIN_HEADERS,
+        workbook,
+        "Rev07_Taste_Fit_Ranking",
+        MAIN_HEADERS,
         [[rank if h == "Rank" else row[h] for h in MAIN_HEADERS] for rank, row in enumerate(taste, 1)],
     )
 
     order = {"1 — Essential": 1, "2 — High": 2, "3 — Medium": 3, "4 — Low": 4, "5 — Skip for Now": 5}
-    priority = sorted(records, key=lambda row: (order[row["Rev07 Viewing Priority"]], -row["Rev07 Channel"], row["Master ID"]))
+    priority = sorted(
+        records,
+        key=lambda row: (order[row["Rev07 Viewing Priority"]], -row["Rev07 Channel"], row["Master ID"]),
+    )
     append_sheet(
-        workbook, "Rev07_Viewing_Priority_Ranking", MAIN_HEADERS,
+        workbook,
+        "Rev07_Viewing_Priority_Ranking",
+        MAIN_HEADERS,
         [[rank if h == "Rank" else row[h] for h in MAIN_HEADERS] for rank, row in enumerate(priority, 1)],
     )
 
-    append_sheet(workbook, "Rev07_Not_For_Channel", FLAG_HEADERS, flag_rows(by_id, NOT_FOR_CHANNEL, "not-for-channel"))
-    append_sheet(workbook, "Rev07_Not_For_My_Taste", FLAG_HEADERS, flag_rows(by_id, NOT_FOR_TASTE, "not-for-taste"))
+    append_sheet(
+        workbook, "Rev07_Not_For_Channel", FLAG_HEADERS, flag_rows(by_id, NOT_FOR_CHANNEL, "not-for-channel")
+    )
+    append_sheet(
+        workbook, "Rev07_Not_For_My_Taste", FLAG_HEADERS, flag_rows(by_id, NOT_FOR_TASTE, "not-for-taste")
+    )
     append_sheet(workbook, "Rev07_Skip_For_Now", FLAG_HEADERS, flag_rows(by_id, SKIP_FOR_NOW, "skip-for-now"))
 
     top_rows = []
     for rank, master_id in enumerate(sorted(TOP_CONTENT), 1):
         row = by_id[master_id]
-        top_rows.append([
-            rank, master_id, row["Title"], row["Year"], row["Director / Creator"],
-            row["Rev07 Channel"], row["Rev07 Taste Fit"], row["Rev07 Tier"],
-            "Decision under uncertainty", "What changes when evidence is incomplete?",
-            "Use the fictional scenario to test conflicting interpretations.",
-            "Synthetic candidate; no relationship to the private archive.",
-        ])
+        top_rows.append(
+            [
+                rank,
+                master_id,
+                row["Title"],
+                row["Year"],
+                row["Director / Creator"],
+                row["Rev07 Channel"],
+                row["Rev07 Taste Fit"],
+                row["Rev07 Tier"],
+                "Decision under uncertainty",
+                "What changes when evidence is incomplete?",
+                "Use the fictional scenario to test conflicting interpretations.",
+                "Synthetic candidate; no relationship to the private archive.",
+            ]
+        )
     append_sheet(workbook, "Rev07_Top_Content_Candidates", TOP_HEADERS, top_rows)
 
     audit_rows = []
@@ -238,14 +323,28 @@ def generate(output: Path):
         row = by_id[master_id]
         previous_taste = max(0, row["Rev07 Taste Fit"] - 2)
         previous_tier = "A" if row["Rev07 Tier"] == "S" else row["Rev07 Tier"]
-        previous_priority = "3 — Medium" if row["Rev07 Viewing Priority"] == "2 — High" else row["Rev07 Viewing Priority"]
-        audit_rows.append([
-            master_id, row["Title"], row["Year"], row["Director / Creator"],
-            row["Rev06 Channel"], row["Rev07 Channel"], row["Score Delta"],
-            previous_taste, row["Rev07 Taste Fit"], previous_tier, row["Rev07 Tier"],
-            previous_priority, row["Rev07 Viewing Priority"],
-            "Synthetic previous calibration state.", row["Rev07 Calibration Reason"],
-        ])
+        previous_priority = (
+            "3 — Medium" if row["Rev07 Viewing Priority"] == "2 — High" else row["Rev07 Viewing Priority"]
+        )
+        audit_rows.append(
+            [
+                master_id,
+                row["Title"],
+                row["Year"],
+                row["Director / Creator"],
+                row["Rev06 Channel"],
+                row["Rev07 Channel"],
+                row["Score Delta"],
+                previous_taste,
+                row["Rev07 Taste Fit"],
+                previous_tier,
+                row["Rev07 Tier"],
+                previous_priority,
+                row["Rev07 Viewing Priority"],
+                "Synthetic previous calibration state.",
+                row["Rev07 Calibration Reason"],
+            ]
+        )
     append_sheet(workbook, "Rev07_Score_Audit", AUDIT_HEADERS, audit_rows)
 
     output.parent.mkdir(parents=True, exist_ok=True)

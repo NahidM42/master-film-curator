@@ -178,7 +178,9 @@ def test_disk_full_preflight(db, cfg, monkeypatch):
 
     p = prepare(db, cfg)
     plan = create_plan(db, cfg)
-    monkeypatch.setattr("master_film_curator.operations.mover.shutil.disk_usage", lambda _: SimpleNamespace(free=0))
+    monkeypatch.setattr(
+        "master_film_curator.operations.mover.shutil.disk_usage", lambda _: SimpleNamespace(free=0)
+    )
     with pytest.raises(SafetyError, match="space"):
         apply_plan(db, cfg, plan["id"], dry_run=False, confirmed=True)
     assert p.read_bytes() == b"fake" and not cfg.destination_root.exists()

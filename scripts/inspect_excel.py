@@ -55,7 +55,10 @@ def inspect(path):
                 "Genre": r["Genre"],
             }
             for r in master
-            if any(s in f"{r['Title']} {r['Genre']}".casefold() for s in ["miniseries", "tv series", "reality-tv", "tv-series"])
+            if any(
+                s in f"{r['Title']} {r['Genre']}".casefold()
+                for s in ["miniseries", "tv series", "reality-tv", "tv-series"]
+            )
         ]
         return result
     finally:

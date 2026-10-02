@@ -68,9 +68,7 @@ def test_real_ffprobe_end_to_end(tmp_path):
         assert apply_plan(db, config, plan["id"])["status"] == "dry_run"
         assert all(p.read_bytes() == b for p, b in originals.items())
         report = generate_reports(db, config)
-        assert (
-            json.loads((report / "operation_summary.json").read_text())["missing_unconfirmed_titles"] == 55
-        )
+        assert json.loads((report / "operation_summary.json").read_text())["missing_unconfirmed_titles"] == 55
         applied = apply_plan(db, config, plan["id"], dry_run=False, confirmed=True)
         assert applied["status"] == "completed"
         assert any("/Season 01/" in e["destination"] for e in applied["entries"])
