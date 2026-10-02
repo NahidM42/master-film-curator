@@ -4,12 +4,12 @@ from master_film_curator.config import Config
 from master_film_curator.db.sqlite import connect, dumps
 
 
-def record(mid=1, title="Persona", year=1966, **kw):
+def record(mid=1, title="Lanterns at Noon", year=1966, **kw):
     return {
         "master_id": mid,
         "title": title,
         "year": year,
-        "director": "Ingmar Bergman",
+        "director": "Mira Voss",
         "genre": "Drama",
         "channel_score": 95,
         "taste_fit": 90,
@@ -46,9 +46,9 @@ def db(cfg):
     with connect(cfg.database_path, lock=False) as conn:
         for r in [
             record(),
-            record(2, "Shame", 1968),
-            record(3, "Shame", 2011, director="Steve McQueen"),
-            record(4, "Show", 2019, is_series=True),
+            record(2, "Silent Harbor", 1968, director="Arman Kestrel"),
+            record(3, "Silent Harbor", 2011, director="Omar Keene"),
+            record(4, "Meridian House", 1973, director="Mira Voss", is_series=True),
         ]:
             conn.execute("INSERT INTO catalog VALUES(?,?)", (r["master_id"], dumps(r)))
         conn.execute("INSERT INTO metadata VALUES('catalog_sha256','fixture')")
