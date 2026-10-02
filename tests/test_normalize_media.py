@@ -11,13 +11,13 @@ from master_film_curator.media.series_parser import parse_series
 @pytest.mark.parametrize(
     "name,title,year",
     [
-        ("A.Separation.2011.1080p.BluRay.x265.AAC-PSA.mkv", "a separation", 2011),
-        ("Persona.1966.WEB-DL.H264.en.srt", "persona", 1966),
-        ("Dogville_2003_720p_YIFY.mp4", "dogville", 2003),
-        ("1917.2019.2160p.mkv", "1917", 2019),
-        ("2001.A.Space.Odyssey.1968.BDRip.mkv", "2001 a space odyssey", 1968),
+        ("Glass.Orchard.2011.1080p.BluRay.x265.AAC-PSA.mkv", "glass orchard", 2011),
+        ("Lanterns.at.Noon.1966.WEB-DL.H264.en.srt", "lanterns at noon", 1966),
+        ("Northbound.Silence_2003_720p_YIFY.mp4", "northbound silence", 2003),
+        ("Signal.Nine.2019.2160p.mkv", "signal nine", 2019),
+        ("Orbit.of.Dust.1968.BDRip.mkv", "orbit of dust", 1968),
         ("Ｆｉｌｍ.2020.HEVC.mkv", "film", 2020),
-        ("Persona (1966) — Ingmar Bergman.mkv", "persona", 1966),
+        ("Lanterns at Noon (1966) — Mira Voss.mkv", "lanterns at noon", 1966),
     ],
 )
 def test_parse(name, title, year):
@@ -25,7 +25,7 @@ def test_parse(name, title, year):
 
 
 def test_unicode():
-    assert normalize_title(" Amélie—test!  ") == normalize_title("Ame\u0301lie test")
+    assert normalize_title(" Élan—test!  ") == normalize_title("E\u0301lan test")
 
 
 @pytest.mark.parametrize(
@@ -101,4 +101,4 @@ def test_probe_ignores_cover(monkeypatch):
 
 def test_episode_number_in_season_folder_and_language_tag():
     assert parse_path(Path("/root/Show (2019)/Season 01/E03.mkv"))["title"] == "show"
-    assert parse_filename("Persona.en.1080p.mkv")["title"] == "persona"
+    assert parse_filename("Lanterns.at.Noon.en.1080p.mkv")["title"] == "lanterns at noon"
