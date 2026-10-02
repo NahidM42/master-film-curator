@@ -17,7 +17,7 @@ def inspect(path):
         sheets = {sheet.title: sheet_rows(sheet) for sheet in workbook}
         master = sheets[MAIN]
         by_id = {r["Master ID"]: r for r in master}
-        result = {"source": str(path), "sha256": hashlib.sha256(path.read_bytes()).hexdigest(), "sheets": {}}
+        result = {"source": path.name, "sha256": hashlib.sha256(path.read_bytes()).hexdigest(), "sheets": {}}
         for name, rows in sheets.items():
             headers = list(rows[0]) if rows else []
             result["sheets"][name] = {
@@ -36,6 +36,7 @@ def inspect(path):
             for name, n in Counter(r["Title"] for r in master).items()
             if n > 1
         }
+        result["year_values"] = sorted({str(r["Year"]) for r in master})
         result["tiers"] = dict(Counter(r["Rev07 Tier"] for r in master))
         result["priorities"] = dict(Counter(r["Rev07 Viewing Priority"] for r in master))
         result["ranking_disagreements"] = {
@@ -46,6 +47,16 @@ def inspect(path):
             )
             for name in ["Rev07_Taste_Fit_Ranking", "Rev07_Viewing_Priority_Ranking"]
         }
+        result["series_hints"] = [
+            {
+                "Master ID": r["Master ID"],
+                "Title": r["Title"],
+                "Year": r["Year"],
+                "Genre": r["Genre"],
+            }
+            for r in master
+            if any(s in f"{r['Title']} {r['Genre']}".casefold() for s in ["miniseries", "tv series", "reality-tv", "tv-series"])
+        ]
         return result
     finally:
         workbook.close()
