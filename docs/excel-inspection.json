@@ -1,0 +1,170 @@
+{
+  "source": "Rev07_Sample_Catalog_60.xlsx",
+  "synthetic": true,
+  "generated_by": "scripts/generate_sample_catalog.py",
+  "primary_catalog_records": 60,
+  "sheets": {
+    "Rev07_Channel_Value_Ranking": {
+      "rows": 60,
+      "columns": [
+        "Rank",
+        "Master ID",
+        "Title",
+        "Year",
+        "Director / Creator",
+        "Genre",
+        "Rev06 Channel",
+        "Rev07 Channel",
+        "Rev07 Taste Fit",
+        "Rev07 Tier",
+        "Rev07 Viewing Priority",
+        "Score Delta",
+        "Analytical Note",
+        "Rev07 Calibration Reason"
+      ]
+    },
+    "Rev07_Taste_Fit_Ranking": {
+      "rows": 60
+    },
+    "Rev07_Viewing_Priority_Ranking": {
+      "rows": 60
+    },
+    "Rev07_Not_For_Channel": {
+      "rows": 8
+    },
+    "Rev07_Not_For_My_Taste": {
+      "rows": 7
+    },
+    "Rev07_Skip_For_Now": {
+      "rows": 10
+    },
+    "Rev07_Top_Content_Candidates": {
+      "rows": 12
+    },
+    "Rev07_Score_Audit": {
+      "rows": 12
+    }
+  },
+  "duplicate_titles": {
+    "Silent Harbor": [
+      {
+        "id": 1005,
+        "year": 1968,
+        "director": "Arman Kestrel"
+      },
+      {
+        "id": 1006,
+        "year": 2011,
+        "director": "Omar Keene"
+      }
+    ],
+    "Glass Orchard": [
+      {
+        "id": 1002,
+        "year": 2011,
+        "director": "Leila Arden"
+      },
+      {
+        "id": 1051,
+        "year": 2001,
+        "director": "Jori Wren"
+      }
+    ],
+    "The Witness Room": [
+      {
+        "id": 1007,
+        "year": 1973,
+        "director": "Pavel Mora"
+      },
+      {
+        "id": 1052,
+        "year": 2022,
+        "director": "Selene Mora"
+      }
+    ],
+    "Northbound Silence": [
+      {
+        "id": 1003,
+        "year": 2003,
+        "director": "Tomas Vale"
+      },
+      {
+        "id": 1053,
+        "year": 1992,
+        "director": "Daria Lune"
+      },
+      {
+        "id": 1054,
+        "year": 2024,
+        "director": "Pavel Orr"
+      }
+    ],
+    "A Map of Ash": [
+      {
+        "id": 1014,
+        "year": 2001,
+        "director": "Caleb Mire"
+      },
+      {
+        "id": 1055,
+        "year": 2016,
+        "director": "Marek Fen"
+      },
+      {
+        "id": 1056,
+        "year": 2024,
+        "director": "Tara Pike"
+      }
+    ]
+  },
+  "tiers": {
+    "S": 6,
+    "A": 20,
+    "B": 18,
+    "C": 10,
+    "D": 6
+  },
+  "priorities": {
+    "1 — Essential": 12,
+    "2 — High": 14,
+    "3 — Medium": 18,
+    "4 — Low": 11,
+    "5 — Skip for Now": 5
+  },
+  "flags": {
+    "not_for_channel": 8,
+    "not_for_my_taste": 7,
+    "skip_for_now": 10,
+    "top_content_candidate": 12
+  },
+  "ranking_disagreements": {
+    "Rev07_Taste_Fit_Ranking": 0,
+    "Rev07_Viewing_Priority_Ranking": 0
+  },
+  "series_hints": [
+    {
+      "id": 1008,
+      "title": "Meridian House",
+      "year": 1973,
+      "genre": "Drama, Miniseries"
+    },
+    {
+      "id": 1045,
+      "title": "Rooms of Weather",
+      "year": 2020,
+      "genre": "Drama, TV Series"
+    },
+    {
+      "id": 1057,
+      "title": "Open Circuit",
+      "year": 2017,
+      "genre": "Documentary, TV Series"
+    },
+    {
+      "id": 1058,
+      "title": "Rooms of Weather: Field Notes",
+      "year": 2021,
+      "genre": "Documentary, Reality-TV"
+    }
+  ]
+}
