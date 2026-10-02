@@ -28,7 +28,7 @@ def test_dry_run(db, cfg):
 
 def test_move_rollback_and_idempotency(db, cfg):
     p = prepare(db, cfg)
-    side = p.with_name("Persona.1966.en.srt")
+    side = p.with_name("Lanterns.at.Noon.1966.en.srt")
     side.write_bytes(b"subtitle")
     plan = create_plan(db, cfg)
     applied = apply_plan(db, cfg, plan["id"], dry_run=False, confirmed=True)
