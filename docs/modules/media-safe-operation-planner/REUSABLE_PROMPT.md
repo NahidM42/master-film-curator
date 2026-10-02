@@ -104,4 +104,4 @@ plan prints UUID, move/rename/quality/series/ambiguity/missing/collision/size su
 
 ## Example Input / Output
 
-Persona 1966, Essential/S, 1080-class -> 01_Essential/S/Persona (1966) — Ingmar Bergman/Persona (1966) — Ingmar Bergman.mkv.
+Lanterns at Noon 1966, Essential/S, 1080-class -> 01_Essential/S/Lanterns at Noon (1966) — Mira Voss/Lanterns at Noon (1966) — Mira Voss.mkv.
