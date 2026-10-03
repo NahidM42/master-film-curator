@@ -2,7 +2,7 @@
 
 Master Film Curator is a safety-first Python application for catalog-driven film and series archive curation. It combines read-only Excel catalog ingestion, confidence-based matching, `ffprobe` media analysis, human review, dry-run operation planning, verified no-overwrite file operations, audit trails, and rollback/recovery.
 
-The public repository is designed to run against a **fully synthetic 60-record catalog**. Private archive paths and the user's real workbook are intentionally kept out of version control.
+The public release checkout runs against a **fully synthetic 60-record catalog** and contains no real workbook or private archive paths. Private configuration and runtime state belong in ignored local files. Earlier development used a private workbook; the public-release history has been rewritten to remove that workbook and private inspection artifacts. Historical development notes describe that earlier verification, not the synthetic sample.
 
 ## Overview
 

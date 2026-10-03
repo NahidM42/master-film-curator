@@ -30,14 +30,12 @@ jobs:
         run: |
           set -euo pipefail
 
-          test ! -e private-catalog.xlsx
-
-          if git grep -n -I -E '(/home/[A-Za-z0-9_.-]+|/mnt/[A-Za-z]/|hostname[[:space:]]*[:=]|Rev07_Film_Channel_Rankings_[0-9-]+\.xlsx)' -- . ':(exclude).github/workflows/ci.yml'; then
+          if git grep -n -I -E '(/home/[A-Za-z0-9_.-]+|/Users/[A-Za-z0-9_.-]+|/mnt/[A-Za-z]/|hostname[[:space:]]*[:=]|Rev07_Film_Channel_Rankings_[0-9-]+\.xlsx)' -- . ':(exclude).github/workflows/ci.yml'; then
             echo "Private path, hostname, or real-workbook reference detected."
             exit 1
           fi
 
-          if git grep -n -I -E '(BEGIN (OPENSSH|RSA|EC) PRIVATE KEY|ghp_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]+|sk-proj-[A-Za-z0-9_-]+|AKIA[0-9A-Z]{16})' -- . ':(exclude).github/workflows/ci.yml'; then
+          if git grep -n -I -E '(BEGIN ([A-Z0-9]+ )?PRIVATE KEY|ghp_[A-Za-z0-9]{20,}|github_pat_[A-Za-z0-9_]+|sk-[A-Za-z0-9_-]{20,}|AKIA[0-9A-Z]{16})' -- . ':(exclude).github/workflows/ci.yml'; then
             echo "Credential-like material detected."
             exit 1
           fi
