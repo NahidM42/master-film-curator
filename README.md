@@ -380,3 +380,7 @@ uv run python scripts/run_fake_library.py --output ./demo-output --ffmpeg ffmpeg
 اسکریپت فقط پوشهٔ خروجی **جدید** می‌پذیرد و همهٔ ویدئوها را خودش تولید می‌کند؛ مسیر آرشیو واقعی دریافت نمی‌کند. Excel صرفاً خوانده می‌شود. Import، scan، match، ffprobe، report، Apply آزمایشی، اجرای دوم و Rollback بررسی می‌شوند. اگر FFmpeg موجود نباشد، تست واقعی آن با دلیل skip می‌شود؛ برای اعتبارسنجی کامل باید نصب باشد.
 
 ساختار ماژولار در [Architecture](docs/architecture.md)، نتیجهٔ اعتبارسنجی در [Validation](docs/validation.md) و قراردادهای بازاستفاده در [docs/modules](docs/modules/README.md) قرار دارد.
+
+## License
+
+Master Film Curator is released under the [MIT License](LICENSE).
